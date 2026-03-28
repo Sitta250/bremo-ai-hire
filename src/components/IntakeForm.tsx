@@ -292,9 +292,6 @@ export default function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
             </>
           )}
         </button>
-        <p className="text-xs text-muted-foreground mt-3 uppercase tracking-wider">
-          ⚙ Powered by 8 AI evaluation agents
-        </p>
       </div>
     </motion.div>
   );
