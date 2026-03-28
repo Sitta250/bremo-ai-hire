@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import CandidateCard from "./CandidateCard";
 import type { SearchResult } from "@/data/mockData";
-import { ArrowLeftRight } from "lucide-react";
 
 interface ResultsViewProps {
   results: SearchResult;
@@ -59,29 +58,6 @@ export default function ResultsView({ results }: ResultsViewProps) {
         ))}
       </div>
 
-      {/* Comparison View */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="mt-8 text-center"
-      >
-        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-          <span className="px-2 py-0.5 rounded bg-secondary text-[10px] font-bold">Alpha</span>
-        </div>
-        <button
-          disabled
-          className="mt-2 inline-flex items-center gap-2 px-6 py-3 rounded-md bg-secondary text-muted-foreground text-sm cursor-not-allowed"
-          title="Coming soon"
-        >
-          <ArrowLeftRight className="w-4 h-4" />
-          Comparison View — Coming Soon
-        </button>
-        <p className="text-xs text-muted-foreground mt-4">
-          Our intelligence engine updates scores every 6 hours based on real-world market volatility
-          and internal sentiment signals. Last updated: <strong className="text-foreground">Today, 04:12 GMT</strong>.
-        </p>
-      </motion.div>
     </div>
   );
 }
