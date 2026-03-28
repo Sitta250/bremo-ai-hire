@@ -14,7 +14,6 @@ export default function ResultsView({ results }: ResultsViewProps) {
   const colorText  = isHigh ? "text-green-400"  : isMod ? "text-warning"  : "text-danger";
   const colorText2 = isHigh ? "text-green-500"  : isMod ? "text-warning"  : "text-danger";
   const colorBg    = isHigh ? "bg-green-500"    : isMod ? "bg-warning"    : "bg-danger";
-  const colorBg30  = isHigh ? "bg-green-500/30" : isMod ? "bg-warning/30" : "bg-danger/30";
   const colorBorder = isHigh ? "border-green-400/20" : isMod ? "border-warning/20" : "border-danger/20";
 
   return (
@@ -42,10 +41,7 @@ export default function ResultsView({ results }: ResultsViewProps) {
                 {results.confidenceLevel} Confidence
               </p>
             </div>
-            <div className="relative flex items-center justify-center mb-4 mr-2">
-              <span className={`h-2 w-2 rounded-full z-10 ${colorBg}`} />
-              <span className={`absolute h-5 w-5 rounded-full animate-pulse ${colorBg30}`} />
-            </div>
+            <span className={`h-2 w-2 rounded-full mb-4 mr-2 shrink-0 ${colorBg}`} />
           </div>
           <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden mb-3">
             <div className={`h-full ${colorBg}`} style={{ width: `${results.confidence}%` }} />
