@@ -54,10 +54,6 @@ export default function CandidateCard({ candidate, rank }: CandidateCardProps) {
           #{rank}
         </span>
 
-        {/* Avatar placeholder */}
-        <div className="w-14 h-14 rounded-full bg-secondary border-2 border-border shrink-0 flex items-center justify-center text-muted-foreground text-lg font-bold">
-          {c.name.split(" ").map(n => n[0]).join("")}
-        </div>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
