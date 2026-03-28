@@ -59,7 +59,7 @@ export default function SummaryBar({ role, poolType, uploadedCount, scenario, on
           </button>
           <button
             onClick={onNewSearch}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium uppercase tracking-wider bg-primary text-primary-foreground rounded-md hover:brightness-110 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium uppercase tracking-wider bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
           >
             <RotateCcw className="w-3 h-3" /> New Search
           </button>
