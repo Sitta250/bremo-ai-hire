@@ -35,29 +35,22 @@ export default function ResultsView({ results }: ResultsViewProps) {
           <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Top 5 Candidates</h2>
           <p className="text-sm text-muted-foreground mt-1">Ranked by weighted multi-agent consensus</p>
         </div>
-        <div className="mt-3 sm:mt-0 bg-card border border-border rounded-lg p-5 min-w-[260px]">
-          <div className="flex items-start justify-between mb-1">
-            <div>
-              <div className={`text-4xl font-extrabold ${dotTextColor}`}>
-                {results.confidence}%
-              </div>
-              <div className={`text-xs uppercase tracking-wider font-bold mt-1 ${dotTextColor}`}>
-                {results.confidenceLevel} Confidence
-              </div>
+        <div className="mt-3 sm:mt-0 bg-card border border-border rounded-lg px-4 py-3 min-w-[200px]">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-baseline gap-2">
+              <span className={`text-2xl font-extrabold ${dotTextColor}`}>{results.confidence}%</span>
+              <span className={`text-[10px] uppercase tracking-wider font-bold ${dotTextColor}`}>
+                {results.confidenceLevel}
+              </span>
             </div>
-            <span className={`w-3 h-3 rounded-full ${dotColor} mt-2 shrink-0`} />
+            <span className={`w-2.5 h-2.5 rounded-full ${dotColor} shrink-0`} />
           </div>
-          <div className="h-2 bg-secondary rounded-full overflow-hidden my-3">
-            <div
-              className={`h-full rounded-full ${dotColor}`}
-              style={{ width: `${results.confidence}%` }}
-            />
+          <div className="h-1.5 bg-secondary rounded-full overflow-hidden mb-2">
+            <div className={`h-full rounded-full ${dotColor}`} style={{ width: `${results.confidence}%` }} />
           </div>
-          <div className="border-t border-border pt-3">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              Based on evidence verification across 8 independent AI agents.
-            </p>
-          </div>
+          <p className="text-[10px] text-muted-foreground leading-snug">
+            Based on evidence verification across 8 independent AI agents.
+          </p>
         </div>
       </motion.div>
 
