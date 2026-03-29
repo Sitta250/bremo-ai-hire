@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Search, Upload, X } from "lucide-react";
+import { Check, Search, Upload, X } from "lucide-react";
 import { internalPool } from "@/data/mockData";
 import type { InternalPoolEntry } from "@/data/mockData";
 
@@ -44,9 +44,11 @@ function PoolCard({
           {c.archetype}
         </span>
       </div>
-      <div className={`shrink-0 w-4 h-4 rounded border transition-colors ${
-        selected ? "bg-primary border-primary" : "border-border/60 bg-transparent"
-      }`} />
+      <div className={`shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+        selected ? "bg-primary border-primary text-primary-foreground" : "border-border/60 bg-transparent"
+      }`}>
+        {selected && <Check className="w-3 h-3" />}
+      </div>
     </button>
   );
 }

@@ -10,17 +10,17 @@ import {
 import CompetencyRadar from "./CompetencyRadar";
 import DeliberationTrace from "./DeliberationTrace";
 import SpeedVsFitCard from "./SpeedVsFitCard";
-import type { Candidate, SearchResult } from "@/data/mockData";
+import type { SummaryCandidate, SummaryResult } from "@/lib/types";
 
 interface ResultsViewProps {
-  results: SearchResult;
+  summaryResult: SummaryResult;
 }
 
-function getStartPeriod(candidate: Candidate, results: SearchResult) {
-  const { fastest, best_fit: bestFit } = results.ui_payload.speed_vs_fit;
-  if (candidate.id === fastest.candidate_id) return fastest.notice_period;
-  if (candidate.id === bestFit.candidate_id) return bestFit.notice_period;
-  return candidate.type === "Internal" ? "Internal move" : "External search";
+function getStartPeriod(candidate: SummaryCandidate, summaryResult: SummaryResult) {
+  const { fastest, best_fit } = summaryResult.ui_payload.speed_vs_fit;
+  if (candidate.candidate_id === fastest.candidate_id) return fastest.notice_period;
+  if (candidate.candidate_id === best_fit.candidate_id) return best_fit.notice_period;
+  return candidate.candidate_type.toLowerCase() === "internal" ? "Internal move" : "External search";
 }
 
 function getBarColor(score: number) {
@@ -30,33 +30,20 @@ function getBarColor(score: number) {
   return "bg-danger";
 }
 
-function EvidencePill({ evidence }: { evidence: "Verified" | "Self-reported" | "Inferred" }) {
-  const styles = {
-    Verified: "bg-success/10 text-success border-success/20",
-    "Self-reported": "bg-warning/10 text-warning border-warning/20",
-    Inferred: "bg-secondary text-muted-foreground border-border/40",
-  };
-
-  return (
-    <span className={`shrink-0 rounded border px-1.5 py-0.5 text-[11px] font-label font-semibold uppercase tracking-wide ${styles[evidence]}`}>
-      {evidence === "Self-reported" ? "Self" : evidence}
-    </span>
-  );
-}
-
 function CandidateListItem({
   candidate,
   rank,
   selected,
   onSelect,
-  results,
+  summaryResult,
 }: {
-  candidate: Candidate;
+  candidate: SummaryCandidate;
   rank: number;
   selected: boolean;
   onSelect: () => void;
-  results: SearchResult;
+  summaryResult: SummaryResult;
 }) {
+  const isInternal = candidate.candidate_type.toLowerCase() === "internal";
   return (
     <button
       onClick={onSelect}
@@ -70,27 +57,29 @@ function CandidateListItem({
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2.5 flex-wrap">
-            <span className="font-headline text-lg font-bold text-foreground">{candidate.name}</span>
+            <span className="font-headline text-lg font-bold text-foreground">{candidate.candidate_name}</span>
             <span className="text-[11px] font-label font-semibold uppercase tracking-wide leading-none text-muted-foreground">
-              {getStartPeriod(candidate, results)}
+              {getStartPeriod(candidate, summaryResult)}
             </span>
             <span className={`rounded border px-2 py-0.5 text-[10px] font-label font-semibold uppercase tracking-wide ${
-              candidate.type === "Internal"
+              isInternal
                 ? "bg-primary/10 border-primary/20 text-primary"
                 : "border-border/60 text-muted-foreground bg-transparent"
             }`}>
-              {candidate.type}
+              {isInternal ? "Internal" : "External"}
             </span>
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">{candidate.title}</p>
-          <p className="mt-2 line-clamp-2 text-sm text-foreground/80">{candidate.oneLiner}</p>
+          <p className="mt-1 text-xs font-label font-semibold uppercase tracking-wide text-primary/70">
+            {candidate.composite_label}
+          </p>
+          <p className="mt-2 line-clamp-2 text-sm text-foreground/80">{candidate.ai_rationale}</p>
         </div>
         <div className="shrink-0 text-right">
           <span className="block text-xs font-label uppercase tracking-widest text-muted-foreground mb-0.5">
             Score
           </span>
           <span className={`font-label font-bold tabular-nums leading-none ${selected ? "text-2xl text-primary" : "text-xl text-foreground/75"}`}>
-            {candidate.matchScore.toFixed(2)}
+            {candidate.bremo_score.toFixed(2)}
           </span>
         </div>
       </div>
@@ -98,18 +87,22 @@ function CandidateListItem({
   );
 }
 
-function CandidateDetail({ candidate }: { candidate: Candidate }) {
+function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
   const [sortOrder, setSortOrder] = useState<"original" | "asc" | "desc">("original");
+  const isInternal = candidate.candidate_type.toLowerCase() === "internal";
 
   const sortedCriteria = useMemo(() => {
-    if (sortOrder === "desc") return [...candidate.criteria].sort((a, b) => b.score - a.score);
-    if (sortOrder === "asc") return [...candidate.criteria].sort((a, b) => a.score - b.score);
-    return candidate.criteria;
-  }, [candidate.criteria, sortOrder]);
+    const criteria = candidate.intelligence_breakdown ?? [];
+    if (sortOrder === "desc") return [...criteria].sort((a, b) => b.score - a.score);
+    if (sortOrder === "asc") return [...criteria].sort((a, b) => a.score - b.score);
+    return criteria;
+  }, [candidate.intelligence_breakdown, sortOrder]);
+
+  const stabilityLabel = candidate.stability_label ?? "Stable";
 
   return (
     <motion.div
-      key={candidate.id}
+      key={candidate.candidate_id}
       initial={{ opacity: 0, x: 12 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.2 }}
@@ -119,22 +112,18 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="font-headline text-3xl font-bold text-foreground">{candidate.name}</span>
+              <span className="font-headline text-3xl font-bold text-foreground">{candidate.candidate_name}</span>
               <span className={`text-xs font-label font-semibold uppercase tracking-wide px-2 py-0.5 rounded border ${
-                candidate.type === "Internal"
+                isInternal
                   ? "bg-primary/10 border-primary/20 text-primary"
                   : "border-border/60 text-muted-foreground bg-transparent"
               }`}>
-                {candidate.type}
+                {isInternal ? "Internal" : "External"}
               </span>
             </div>
-            <div className="flex items-center gap-3 mt-1">
-              <p className="text-sm text-muted-foreground">{candidate.title}</p>
-              <span className="text-muted-foreground/50">·</span>
-              <p className="text-xs font-label font-semibold uppercase tracking-wider text-primary/80">
-                {candidate.archetype}
-              </p>
-            </div>
+            <p className="text-xs font-label font-semibold uppercase tracking-wider text-primary/80 mt-1">
+              {candidate.composite_label}
+            </p>
           </div>
 
           <div className="text-right ml-2 shrink-0">
@@ -142,7 +131,7 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
               Score
             </span>
             <span className="font-label font-bold tabular-nums leading-none text-3xl text-primary">
-              {candidate.matchScore.toFixed(2)}
+              {candidate.bremo_score.toFixed(2)}
             </span>
           </div>
         </div>
@@ -156,7 +145,7 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
                 <Sparkles className="w-3.5 h-3.5 text-muted-foreground/70" />
                 <h4 className="text-xs font-label uppercase tracking-widest text-muted-foreground">AI Rationale</h4>
               </div>
-              <p className="text-sm text-foreground/85 leading-relaxed">{candidate.rationale}</p>
+              <p className="text-sm text-foreground/85 leading-relaxed">{candidate.ai_rationale}</p>
             </div>
 
             <div className="col-span-12 lg:col-span-8">
@@ -182,9 +171,9 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
               </div>
               <div className="space-y-3">
                 {sortedCriteria.map((cr) => (
-                  <div key={cr.name} className="flex items-center gap-4">
+                  <div key={cr.criterion_name} className="flex items-center gap-4">
                     <span className="w-36 text-xs font-label uppercase tracking-wide text-muted-foreground truncate shrink-0">
-                      {cr.name}
+                      {cr.criterion_name}
                     </span>
                     <div className="flex-1 h-[5px] bg-border rounded-full overflow-hidden">
                       <div className={`h-full rounded-full ${getBarColor(cr.score)}`} style={{ width: `${cr.score * 10}%` }} />
@@ -199,7 +188,7 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 border-t border-border/40 pt-6">
-            <CompetencyRadar profile={candidate.radarProfile} />
+            <CompetencyRadar profile={candidate.radar_profile} />
 
             <div className="border border-border/50 rounded-lg p-4 flex flex-col bg-secondary/20">
               <div className="flex items-center gap-2 mb-3">
@@ -211,18 +200,18 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
 
               <div className="mb-3">
                 <span className={`inline-flex rounded border px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-[0.18em] ${
-                  candidate.rankingStability === "Stable"
+                  stabilityLabel === "Stable"
                     ? "border-success/20 bg-success/10 text-success"
-                    : candidate.rankingStability === "Fragile"
+                    : stabilityLabel === "Fragile"
                       ? "border-warning/20 bg-warning/10 text-warning"
                       : "border-danger/20 bg-danger/10 text-danger"
                 }`}>
-                  {candidate.rankingStability}
+                  {stabilityLabel}
                 </span>
               </div>
 
               <p className="text-sm text-foreground/80 leading-relaxed mb-4">
-                &quot;{candidate.challengerView}&quot;
+                &quot;{candidate.challenger_view}&quot;
               </p>
 
               <div className="border-l-2 border-warning/50 pl-3 py-2 bg-warning/5 rounded-r">
@@ -230,7 +219,7 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
                   <Zap className="w-3 h-3 text-warning/80 shrink-0" />
                   <span className="text-xs font-label font-semibold text-warning/90">Mitigation Strategy</span>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">{candidate.mitigationStrategy}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{candidate.mitigation_strategy}</p>
               </div>
             </div>
           </div>
@@ -239,13 +228,10 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
             <div>
               <h4 className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-3">Core Strengths</h4>
               <div className="space-y-3">
-                {candidate.strengths.map((s, i) => (
+                {(candidate.core_strengths ?? []).map((strength, i) => (
                   <div key={i} className="flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-success/80 mt-0.5 shrink-0" />
-                    <div className="min-w-0 space-y-1">
-                      <p className="text-sm text-foreground/85 leading-snug">{s.text}</p>
-                      <EvidencePill evidence={s.evidence} />
-                    </div>
+                    <p className="text-sm text-foreground/85 leading-snug">{strength}</p>
                   </div>
                 ))}
               </div>
@@ -254,47 +240,58 @@ function CandidateDetail({ candidate }: { candidate: Candidate }) {
             <div>
               <h4 className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-3">Risk Flags</h4>
               <div className="space-y-2">
-                {candidate.risks.map((r, i) => (
+                {(candidate.critical_risks ?? []).map((risk, i) => (
                   <div key={i} className="px-2.5 py-2 rounded border border-warning/20 bg-warning/5 flex items-start gap-2">
                     <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-warning/80" />
-                    <span className="text-sm text-warning leading-snug">{r.text}</span>
+                    <span className="text-sm text-warning leading-snug">{risk}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="border-t border-border/40 pt-6">
-            <DeliberationTrace entries={candidate.deliberationTrace} />
-          </div>
-
-          <div className="border-t border-border/40 pt-5">
-            <h4 className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-4">
-              Recommended Protocol
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {candidate.actionItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span className="h-5 w-5 rounded bg-primary/10 text-primary font-label text-xs font-bold flex items-center justify-center shrink-0">
-                    {i + 1}
-                  </span>
-                  <p className="text-sm text-foreground/75 leading-relaxed">{item}</p>
-                </div>
-              ))}
+          {(candidate.deliberation_trace?.length ?? 0) > 0 && (
+            <div className="border-t border-border/40 pt-6">
+              <DeliberationTrace entries={candidate.deliberation_trace} />
             </div>
-          </div>
+          )}
+
+          {(candidate.recommended_protocol?.length ?? 0) > 0 && (
+            <div className="border-t border-border/40 pt-5">
+              <h4 className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-4">
+                Recommended Protocol
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {candidate.recommended_protocol.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="h-5 w-5 rounded bg-primary/10 text-primary font-label text-xs font-bold flex items-center justify-center shrink-0">
+                      {i + 1}
+                    </span>
+                    <p className="text-sm text-foreground/75 leading-relaxed">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
   );
 }
 
-export default function ResultsView({ results }: ResultsViewProps) {
-  const [selectedId, setSelectedId] = useState(results.candidates[0]?.id ?? "");
+export default function ResultsView({ summaryResult }: ResultsViewProps) {
+  const candidates = summaryResult.ui_payload?.candidates ?? [];
+  const [selectedId, setSelectedId] = useState(candidates[0]?.candidate_id ?? "");
   const [leftPaneWidth, setLeftPaneWidth] = useState(360);
   const [isResizing, setIsResizing] = useState(false);
   const layoutRef = useRef<HTMLDivElement>(null);
-  const selectedCandidate = results.candidates.find((candidate) => candidate.id === selectedId) ?? results.candidates[0];
+  const selectedCandidate = candidates.find((c) => c.candidate_id === selectedId) ?? candidates[0];
+
+  // Reset selection when summaryResult changes
+  useEffect(() => {
+    setSelectedId(candidates[0]?.candidate_id ?? "");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [summaryResult]);
 
   useEffect(() => {
     if (!isResizing) return;
@@ -323,10 +320,18 @@ export default function ResultsView({ results }: ResultsViewProps) {
     };
   }, [isResizing]);
 
+  if (candidates.length === 0) {
+    return (
+      <div className="max-w-[1440px] mx-auto px-6 py-8">
+        <p className="text-muted-foreground text-sm">No candidates found in this result.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-[1440px] mx-auto px-6 py-8">
       <div className="mb-4">
-        <SpeedVsFitCard data={results.ui_payload.speed_vs_fit} />
+        <SpeedVsFitCard data={summaryResult.ui_payload.speed_vs_fit} />
       </div>
 
       <div ref={layoutRef} className="grid grid-cols-1 xl:flex xl:items-start">
@@ -335,14 +340,14 @@ export default function ResultsView({ results }: ResultsViewProps) {
           style={{ width: leftPaneWidth }}
         >
           <div className="space-y-3">
-            {results.candidates.map((candidate, idx) => (
+            {candidates.map((candidate, idx) => (
               <CandidateListItem
-                key={candidate.id}
+                key={candidate.candidate_id}
                 candidate={candidate}
                 rank={idx + 1}
-                selected={candidate.id === selectedCandidate.id}
-                onSelect={() => setSelectedId(candidate.id)}
-                results={results}
+                selected={candidate.candidate_id === selectedCandidate?.candidate_id}
+                onSelect={() => setSelectedId(candidate.candidate_id)}
+                summaryResult={summaryResult}
               />
             ))}
           </div>

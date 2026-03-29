@@ -1,6 +1,6 @@
 import { Zap, CheckCircle2, Info } from "lucide-react";
 import { motion } from "framer-motion";
-import type { SpeedVsFit, SpeedVsFitEntry } from "@/data/mockData";
+import type { SpeedVsFit, SpeedVsFitEntry } from "@/lib/types";
 
 function CandidateColumn({
   entry,

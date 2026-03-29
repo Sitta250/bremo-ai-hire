@@ -1,4 +1,4 @@
-import type { RadarProfile } from "@/data/mockData";
+import type { RadarProfile } from "@/lib/types";
 
 // Pentagon axes: top → clockwise
 const AXES: { key: keyof RadarProfile; label: string; angle: number; anchor: string; dx: number; dy: number }[] = [

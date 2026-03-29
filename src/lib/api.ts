@@ -1,0 +1,33 @@
+/**
+ * Submits the intake payload to the n8n webhook and returns the raw JSON response.
+ * If VITE_USE_MOCK === "true", returns local mock data instead of calling the webhook.
+ */
+export async function submitIntake(payload: unknown): Promise<unknown> {
+  if (import.meta.env.VITE_USE_MOCK === "true") {
+    const { mockSummaryResult } = await import("@/data/mockSummaryResult");
+    return mockSummaryResult;
+  }
+
+  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+  if (!webhookUrl) {
+    throw new Error(
+      "VITE_N8N_WEBHOOK_URL is not defined. Add it to your .env.local file."
+    );
+  }
+
+  const response = await fetch(webhookUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const err = new Error(
+      `Webhook request failed: ${response.status} ${response.statusText}`
+    );
+    (err as Error & { status: number }).status = response.status;
+    throw err;
+  }
+
+  return response.json();
+}

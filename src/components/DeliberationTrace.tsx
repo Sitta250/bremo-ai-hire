@@ -1,5 +1,5 @@
 import { Settings, Users, Brain, Handshake, Gavel, GitBranch } from "lucide-react";
-import type { TraceEntry } from "@/data/mockData";
+import type { DeliberationEntry } from "@/lib/types";
 
 const ICON_MAP = {
   settings:  Settings,
@@ -17,7 +17,7 @@ const DOT_COLORS: Record<string, string> = {
   gavel:     "bg-primary",
 };
 
-function TraceCard({ entry }: { entry: TraceEntry }) {
+function TraceCard({ entry }: { entry: DeliberationEntry }) {
   const Icon = ICON_MAP[entry.agent_icon];
   return (
     <div className="bg-card border border-border/50 rounded-lg p-4 flex-1">
@@ -43,7 +43,7 @@ function TraceCard({ entry }: { entry: TraceEntry }) {
 }
 
 interface DeliberationTraceProps {
-  entries: TraceEntry[];
+  entries: DeliberationEntry[];
 }
 
 export default function DeliberationTrace({ entries }: DeliberationTraceProps) {

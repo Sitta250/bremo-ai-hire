@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, AlertCircle } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import IntakeForm from "@/components/IntakeForm";
 import TalentPoolPanel from "@/components/TalentPoolPanel";
 import EditPanel from "@/components/EditPanel";
 import ResultsView from "@/components/ResultsView";
-import { internalPool, mockResults } from "@/data/mockData";
-import type { InternalPoolEntry, SearchResult } from "@/data/mockData";
+import { internalPool } from "@/data/mockData";
+import type { InternalPoolEntry } from "@/data/mockData";
+import type { SummaryResult, DebugInfo } from "@/lib/types";
+import { submitIntake } from "@/lib/api";
+import { validateSummaryResult } from "@/lib/validateSummaryResult";
 
 interface SearchParams {
   role: string;
@@ -21,16 +24,20 @@ interface SearchParams {
   uploadedFiles: string[];
 }
 
+const SHOW_DEBUG = import.meta.env.VITE_SHOW_DEBUG === "true";
+
 export default function Index() {
   const [state, setState] = useState<"intake" | "loading" | "results">("intake");
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
-  const [results, setResults] = useState<SearchResult | null>(null);
+  const [summaryResult, setSummaryResult] = useState<SummaryResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [debugInfo, setDebugInfo] = useState<DebugInfo | null>(null);
   const [editingField, setEditingField] = useState<"role" | "team" | "scenario" | "both" | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Talent pool state (lifted up so handleSubmit can access it)
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
-  const [selectedInternalIds, setSelectedInternalIds] = useState<string[]>(() => internalPool.map((candidate) => candidate.id));
+  const [selectedInternalIds, setSelectedInternalIds] = useState<string[]>(() => internalPool.map((c) => c.id));
 
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     return (localStorage.getItem("bremo-theme") as "dark" | "light") || "dark";
@@ -45,12 +52,6 @@ export default function Index() {
     localStorage.setItem("bremo-theme", theme);
   }, [theme]);
 
-  const runSearch = (params: SearchParams) => {
-    return new Promise<SearchResult>((resolve) => {
-      setTimeout(() => resolve(mockResults), 2000);
-    });
-  };
-
   const handleSubmit = async (data: {
     role: string;
     roleInfo: Record<string, unknown>;
@@ -59,7 +60,7 @@ export default function Index() {
     scenario: string;
     scenarioInfo: Record<string, unknown>;
   }) => {
-    const params: SearchParams = {
+    const payload: SearchParams = {
       role: data.role,
       roleInfo: data.roleInfo,
       team: data.team,
@@ -68,14 +69,34 @@ export default function Index() {
       scenarioInfo: data.scenarioInfo,
       poolType: uploadedFiles.length > 0 ? "hybrid" : "internal",
       selectedInternalIds,
-      internalCandidates: internalPool.filter((candidate) => selectedInternalIds.includes(candidate.id)),
+      internalCandidates: internalPool.filter((c) => selectedInternalIds.includes(c.id)),
       uploadedFiles,
     };
-    setSearchParams(params);
+
+    setSearchParams(payload);
     setState("loading");
-    const result = await runSearch(params);
-    setResults(result);
-    setState("results");
+    setError(null);
+    setDebugInfo({ payloadSent: payload, rawResponse: null, validationStatus: "pending" });
+
+    try {
+      const raw = await submitIntake(payload);
+      setDebugInfo((prev) => prev ? { ...prev, rawResponse: raw } : prev);
+
+      const validated = validateSummaryResult(raw);
+      setDebugInfo((prev) => prev ? { ...prev, validationStatus: "passed" } : prev);
+
+      setSummaryResult(validated);
+      setState("results");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "An unknown error occurred";
+      const status = (err as Error & { status?: number }).status;
+      setDebugInfo((prev) => prev
+        ? { ...prev, validationStatus: "failed", ...(status ? { responseStatus: status } : {}) }
+        : prev
+      );
+      setError(message);
+      setState("intake");
+    }
   };
 
   const handleEdit = () => setEditingField("both");
@@ -86,17 +107,26 @@ export default function Index() {
     setEditingField(null);
     if (!updated) return;
     setIsRefreshing(true);
-    const result = await runSearch(updated);
-    setResults(result);
-    setIsRefreshing(false);
+    try {
+      const raw = await submitIntake(updated);
+      const validated = validateSummaryResult(raw);
+      setSummaryResult(validated);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "An unknown error occurred";
+      setError(message);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const handleNewSearch = () => {
     setState("intake");
     setSearchParams(null);
-    setResults(null);
+    setSummaryResult(null);
+    setError(null);
+    setDebugInfo(null);
     setEditingField(null);
-    setSelectedInternalIds(internalPool.map((candidate) => candidate.id));
+    setSelectedInternalIds(internalPool.map((c) => c.id));
   };
 
   return (
@@ -209,6 +239,13 @@ export default function Index() {
             {/* Left 1/3 — form */}
             <div className="w-[360px] shrink-0 border-r border-border/60 overflow-y-auto flex flex-col">
               <div className="flex-1 px-6 py-7">
+                {/* Error banner */}
+                {error && state === "intake" && (
+                  <div className="mb-4 flex items-start gap-2.5 px-3.5 py-3 rounded-lg border border-danger/30 bg-danger/10">
+                    <AlertCircle className="w-4 h-4 text-danger shrink-0 mt-0.5" />
+                    <p className="text-sm text-danger leading-snug">{error}</p>
+                  </div>
+                )}
                 <IntakeForm onSubmit={handleSubmit} isLoading={state === "loading"} />
               </div>
             </div>
@@ -225,7 +262,7 @@ export default function Index() {
           </motion.div>
         )}
 
-        {state === "results" && searchParams && results && (
+        {state === "results" && summaryResult && (
           <motion.div
             key="results"
             initial={{ opacity: 0 }}
@@ -233,7 +270,7 @@ export default function Index() {
             transition={{ duration: 0.4 }}
             className="pt-20 relative"
           >
-            <ResultsView results={results} />
+            <ResultsView summaryResult={summaryResult} />
 
             <AnimatePresence>
               {isRefreshing && (
@@ -268,6 +305,59 @@ export default function Index() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Debug panel — only shown when VITE_SHOW_DEBUG=true */}
+      {SHOW_DEBUG && debugInfo && (
+        <div className="fixed bottom-4 right-4 z-50 w-[420px] max-h-[70vh] overflow-y-auto rounded-lg border border-border bg-background/98 shadow-xl text-xs font-mono">
+          <div className="sticky top-0 bg-background/98 border-b border-border px-4 py-2.5 flex items-center justify-between">
+            <span className="font-bold text-foreground text-[11px] uppercase tracking-widest">Debug Panel</span>
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground">State:</span>
+              <span className="text-foreground">{state}</span>
+            </div>
+          </div>
+          <div className="p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground">Validation:</span>
+              <span className={
+                debugInfo.validationStatus === "passed"
+                  ? "text-green-500"
+                  : debugInfo.validationStatus === "failed"
+                    ? "text-red-500"
+                    : "text-yellow-500"
+              }>
+                {debugInfo.validationStatus}
+              </span>
+            </div>
+            {debugInfo.responseStatus !== undefined && (
+              <div>
+                <span className="text-muted-foreground">HTTP Status: </span>
+                <span className="text-foreground">{debugInfo.responseStatus}</span>
+              </div>
+            )}
+            {error && (
+              <div>
+                <span className="text-muted-foreground block mb-1">Error:</span>
+                <span className="text-red-400 break-all">{error}</span>
+              </div>
+            )}
+            <div>
+              <span className="text-muted-foreground block mb-1">Payload Sent:</span>
+              <pre className="text-foreground/70 whitespace-pre-wrap break-all bg-secondary/50 p-2 rounded text-[10px] leading-relaxed">
+                {JSON.stringify(debugInfo.payloadSent, null, 2)}
+              </pre>
+            </div>
+            {debugInfo.rawResponse !== null && (
+              <div>
+                <span className="text-muted-foreground block mb-1">Raw Response:</span>
+                <pre className="text-foreground/70 whitespace-pre-wrap break-all bg-secondary/50 p-2 rounded text-[10px] leading-relaxed">
+                  {JSON.stringify(debugInfo.rawResponse, null, 2)}
+                </pre>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
