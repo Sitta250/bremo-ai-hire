@@ -237,7 +237,7 @@ export default function Index() {
                     <p className="text-sm text-danger leading-snug">{error}</p>
                   </div>
                 )}
-                <IntakeForm onSubmit={handleSubmit} isLoading={state === "loading"} />
+                <IntakeForm onSubmit={handleSubmit} isLoading={false} />
               </div>
             </div>
 
