@@ -9,6 +9,8 @@ bremo-insight-hiring.lovable.app
 
 <img width="255" height="644" alt="image" src="https://github.com/user-attachments/assets/f764242d-0a0f-4094-b460-6480ded5b56d" />
 
+[Hack 2.pdf](https://github.com/user-attachments/files/26335454/Hack.2.pdf)
+
 ## 1. Product Goal
 
 Bremo helps HR compare internal and external candidates for a senior manufacturing role under a specific business scenario.
