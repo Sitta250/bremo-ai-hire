@@ -81,5 +81,4 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
   };
 
   return unwrap(result);
-  }
 }
