@@ -367,7 +367,6 @@ export default function ResultsView({ summaryResult }: ResultsViewProps) {
                 />
               );
             })}
-            ))}
           </div>
         </div>
 
