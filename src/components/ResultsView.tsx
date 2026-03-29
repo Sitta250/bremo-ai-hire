@@ -24,9 +24,11 @@ interface ResultsViewProps {
 }
 
 function getStartPeriod(candidate: SummaryCandidate, summaryResult: SummaryResult) {
-  const { fastest, best_fit } = summaryResult.ui_payload.speed_vs_fit;
-  if (candidate.candidate_id === fastest.candidate_id) return fastest.notice_period;
-  if (candidate.candidate_id === best_fit.candidate_id) return best_fit.notice_period;
+  const svf = summaryResult.ui_payload.speed_vs_fit;
+  if (svf) {
+    if (candidate.candidate_id && candidate.candidate_id === svf.fastest.candidate_id) return svf.fastest.notice_period;
+    if (candidate.candidate_id && candidate.candidate_id === svf.best_fit.candidate_id) return svf.best_fit.notice_period;
+  }
   return candidate.candidate_type.toLowerCase() === "internal" ? "Internal move" : "External search";
 }
 
@@ -64,7 +66,7 @@ function CandidateListItem({
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2.5 flex-wrap">
-            <span className="font-headline text-lg font-bold text-foreground">{candidate.candidate_name}</span>
+            <span className="font-headline text-lg font-bold text-foreground">{candidate.candidate_name || `Candidate ${rank}`}</span>
             <span className="text-[11px] font-label font-semibold uppercase tracking-wide leading-none text-muted-foreground">
               {getStartPeriod(candidate, summaryResult)}
             </span>
@@ -120,7 +122,7 @@ function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="font-headline text-3xl font-bold text-foreground">{candidate.candidate_name}</span>
+              <span className="font-headline text-3xl font-bold text-foreground">{candidate.candidate_name || `Candidate ${candidate.rank}`}</span>
               <span className={`text-xs font-label font-semibold uppercase tracking-wide px-2 py-0.5 rounded border ${
                 isInternal
                   ? "bg-primary/10 border-primary/20 text-primary"
@@ -289,15 +291,17 @@ function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
 
 export default function ResultsView({ summaryResult }: ResultsViewProps) {
   const candidates = summaryResult.ui_payload?.candidates ?? [];
-  const [selectedId, setSelectedId] = useState(candidates[0]?.candidate_id ?? "");
+  // Use index as fallback key when candidate_id is empty
+  const getKey = (c: SummaryCandidate, i: number) => c.candidate_id || `idx-${i}`;
+  const [selectedKey, setSelectedKey] = useState(getKey(candidates[0], 0));
   const [leftPaneWidth, setLeftPaneWidth] = useState(360);
   const [isResizing, setIsResizing] = useState(false);
   const layoutRef = useRef<HTMLDivElement>(null);
-  const selectedCandidate = candidates.find((c) => c.candidate_id === selectedId) ?? candidates[0];
+  const selectedCandidate = candidates.find((c, i) => getKey(c, i) === selectedKey) ?? candidates[0];
 
   // Reset selection when summaryResult changes
   useEffect(() => {
-    setSelectedId(candidates[0]?.candidate_id ?? "");
+    setSelectedKey(getKey(candidates[0], 0));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summaryResult]);
 
@@ -338,9 +342,11 @@ export default function ResultsView({ summaryResult }: ResultsViewProps) {
 
   return (
     <div className="max-w-[1440px] mx-auto px-6 py-8">
-      <div className="mb-4">
-        <SpeedVsFitCard data={summaryResult.ui_payload.speed_vs_fit} />
-      </div>
+      {summaryResult.ui_payload.speed_vs_fit && (
+        <div className="mb-4">
+          <SpeedVsFitCard data={summaryResult.ui_payload.speed_vs_fit} />
+        </div>
+      )}
 
       <div ref={layoutRef} className="grid grid-cols-1 xl:flex xl:items-start">
         <div
@@ -348,16 +354,19 @@ export default function ResultsView({ summaryResult }: ResultsViewProps) {
           style={{ width: leftPaneWidth }}
         >
           <div className="space-y-3">
-            {candidates.map((candidate, idx) => (
-              <CandidateListItem
-                key={candidate.candidate_id}
-                candidate={candidate}
-                rank={idx + 1}
-                selected={candidate.candidate_id === selectedCandidate?.candidate_id}
-                onSelect={() => setSelectedId(candidate.candidate_id)}
-                summaryResult={summaryResult}
-              />
-            ))}
+            {candidates.map((candidate, idx) => {
+              const key = getKey(candidate, idx);
+              return (
+                <CandidateListItem
+                  key={key}
+                  candidate={candidate}
+                  rank={idx + 1}
+                  selected={key === selectedKey}
+                  onSelect={() => setSelectedKey(key)}
+                  summaryResult={summaryResult}
+                />
+              );
+            })}
           </div>
         </div>
 

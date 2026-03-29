@@ -1,10 +1,15 @@
 # Bremo AI Hire — End-to-End System & UI Flow
+bremo-insight-hiring.lovable.app
+
+
 
 <img width="1512" height="860" alt="image" src="https://github.com/user-attachments/assets/dfa8b116-ddeb-40d5-ac47-610d6bb9617b" />
 
 <img width="1512" height="819" alt="image" src="https://github.com/user-attachments/assets/8364295f-a87e-45f6-a3f9-481ccaca38a4" />
 
 <img width="255" height="644" alt="image" src="https://github.com/user-attachments/assets/f764242d-0a0f-4094-b460-6480ded5b56d" />
+
+[Hack 2.pdf](https://github.com/user-attachments/files/26335454/Hack.2.pdf)
 
 ## 1. Product Goal
 

@@ -41,7 +41,7 @@ function PoolCard({
         <p className="font-headline font-semibold text-sm text-foreground leading-snug truncate">{c.name}</p>
         <p className="text-xs text-muted-foreground mt-0.5 truncate">{c.title}</p>
         <span className="inline-block mt-1.5 text-[10px] font-label font-semibold uppercase tracking-widest px-2 py-0.5 bg-secondary border border-border/40 rounded text-muted-foreground">
-          {c.archetype}
+          {c.type}
         </span>
       </div>
       <div className={`shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors ${
@@ -74,7 +74,7 @@ export default function TalentPoolPanel({
         (c) =>
           c.name.toLowerCase().includes(search.toLowerCase()) ||
           c.title.toLowerCase().includes(search.toLowerCase()) ||
-          c.archetype.toLowerCase().includes(search.toLowerCase())
+          c.type.toLowerCase().includes(search.toLowerCase())
       )
     : internalPool;
 

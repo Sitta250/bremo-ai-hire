@@ -15,22 +15,57 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     );
   }
 
-  const response = await fetch(webhookUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  const MAX_RETRIES = 180;
+  const RETRY_DELAY_MS = 5000;
 
-  // Read as text first so we can show a useful error if the body is empty or not valid JSON
+  let response: Response | undefined;
+
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      break; // success — exit retry loop
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      const isNetworkError =
+        msg.includes("Failed to fetch") ||
+        msg.includes("NetworkError") ||
+        msg.includes("AbortError") ||
+        msg.includes("ECONNRESET") ||
+        msg.includes("ETIMEDOUT") ||
+        msg.includes("timeout") ||
+        msg.includes("network");
+
+      if (isNetworkError && attempt < MAX_RETRIES - 1) {
+        console.log(`[submitIntake] Network error on attempt ${attempt + 1}, retrying in ${RETRY_DELAY_MS / 1000}s...`);
+        await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
+        continue;
+      }
+
+      throw new Error(
+        "Could not reach the n8n webhook after multiple retries. Check that:\n" +
+        "1. Your n8n workflow is Active (not just in Test mode)\n" +
+        '2. The webhook URL uses /webhook/ (not /webhook-test/)\n' +
+        "3. The n8n server is running and accessible\n\n" +
+        `Original error: ${msg}`
+      );
+    }
+  }
+
+  if (!response) {
+    throw new Error("No response received after all retry attempts.");
+  }
+
   const text = await response.text();
 
   if (!response.ok) {
-    const err = new Error(
-      `Webhook request failed: ${response.status} ${response.statusText}` +
+    throw new Error(
+      `Webhook returned ${response.status} ${response.statusText}` +
       (text ? `\n\nResponse body: ${text.slice(0, 500)}` : " (empty body)")
     );
-    (err as Error & { status: number }).status = response.status;
-    throw err;
   }
 
   if (!text || text.trim() === "") {
@@ -39,11 +74,38 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     );
   }
 
+  let result: unknown;
   try {
-    return JSON.parse(text);
+    result = JSON.parse(text);
   } catch {
     throw new Error(
       `n8n response is not valid JSON.\n\nReceived: ${text.slice(0, 500)}`
     );
   }
+
+  // Unwrap n8n's { output: "<stringified JSON>" } wrapper
+  const unwrap = (obj: unknown): unknown => {
+    if (Array.isArray(obj) && obj.length > 0) {
+      return unwrap(obj[0]);
+    }
+    if (obj && typeof obj === "object" && "output" in (obj as Record<string, unknown>)) {
+      const raw = (obj as Record<string, unknown>).output;
+      if (typeof raw === "string") {
+        const cleaned = raw
+          .replace(/```json\s*/gi, "")
+          .replace(/```\s*/g, "")
+          .trim()
+          .replace(/,\s*}/g, "}")
+          .replace(/,\s*]/g, "]");
+        try {
+          return JSON.parse(cleaned);
+        } catch {
+          throw new Error(`Failed to parse nested output JSON.\n\n${cleaned.slice(0, 500)}`);
+        }
+      }
+    }
+    return obj;
+  };
+
+  return unwrap(result);
 }
