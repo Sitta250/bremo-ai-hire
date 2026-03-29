@@ -19,7 +19,7 @@ interface SearchParams {
   teamInfo: Record<string, unknown>;
   poolType: "internal" | "hybrid";
   selectedInternalIds: string[];
-  internalCandidates: InternalPoolEntry[];
+  internalCandidates: Record<string, unknown>[];
   scenario: string;
   scenarioInfo: Record<string, unknown>;
   uploadedFiles: string[];
