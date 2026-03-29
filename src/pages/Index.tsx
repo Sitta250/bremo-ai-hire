@@ -70,7 +70,7 @@ export default function Index() {
       scenarioInfo: data.scenarioInfo,
       poolType: uploadedFiles.length > 0 ? "hybrid" : "internal",
       selectedInternalIds,
-      internalCandidates: internalPool.filter((c) => selectedInternalIds.includes(c.id)),
+      internalCandidates: internalPool.filter((c) => selectedInternalIds.includes(c.id)).map((c) => c.fullData),
       uploadedFiles,
     };
 
