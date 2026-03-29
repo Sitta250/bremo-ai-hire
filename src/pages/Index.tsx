@@ -10,6 +10,7 @@ import type { InternalPoolEntry } from "@/data/mockData";
 import type { SummaryResult, DebugInfo } from "@/lib/types";
 import { submitIntake } from "@/lib/api";
 import { validateSummaryResult } from "@/lib/validateSummaryResult";
+import logo from "@/logo.png";
 
 interface SearchParams {
   role: string;
@@ -136,23 +137,13 @@ export default function Index() {
         <div className="grid grid-cols-[1fr_auto_1fr] items-center">
         {/* Logo */}
         <div className="flex items-center gap-2.5 shrink-0 justify-self-start">
-          <div className="w-6 h-6 rounded bg-primary/90 flex items-center justify-center shrink-0">
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="5" height="5" rx="1" fill="white" />
-              <rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity="0.6" />
-              <rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity="0.6" />
-              <rect x="9" y="9" width="5" height="5" rx="1" fill="white" opacity="0.3" />
-            </svg>
-          </div>
+          <img src={logo} alt="Logo" className="h-8 w-8 shrink-0 object-contain" />
           <span className="font-headline font-bold tracking-tight text-base text-foreground">
-            Br<span className="text-primary">e</span>mo
-          </span>
-          <span className="text-[11px] font-label uppercase tracking-widest text-muted-foreground/70 border border-border/60 rounded px-1.5 py-0.5 ml-1">
-            Intelligence
+            Bremo
           </span>
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="ml-2 w-7 h-7 flex items-center justify-center rounded border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors"
+            className="ml-1 w-7 h-7 flex items-center justify-center rounded border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
