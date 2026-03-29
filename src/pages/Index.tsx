@@ -6,7 +6,6 @@ import TalentPoolPanel from "@/components/TalentPoolPanel";
 import EditPanel from "@/components/EditPanel";
 import ResultsView from "@/components/ResultsView";
 import { internalPool } from "@/data/mockData";
-import type { InternalPoolEntry } from "@/data/mockData";
 import type { SummaryResult, DebugInfo } from "@/lib/types";
 import { submitIntake } from "@/lib/api";
 import { validateSummaryResult } from "@/lib/validateSummaryResult";
