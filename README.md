@@ -9,7 +9,9 @@ bremo-insight-hiring.lovable.app
 
 <img width="255" height="644" alt="image" src="https://github.com/user-attachments/assets/f764242d-0a0f-4094-b460-6480ded5b56d" />
 
-[Hack 2.pdf](https://github.com/user-attachments/files/26335454/Hack.2.pdf)
+<img width="685" height="886" alt="image" src="https://github.com/user-attachments/assets/8e69a816-c55b-4729-9460-c5ae22b4397f" />
+
+
 
 ## 1. Product Goal
 
@@ -529,3 +531,12 @@ In plain English, Bremo answers:
 * What should HR verify before moving?
 
 That is why the output feels closer to a hiring committee brief than a simple ranking dashboard.
+
+
+## CV Upload & Data Flow
+
+External CVs are uploaded through the Lovable frontend and sent to an n8n webhook.  
+n8n runs on Railway, where it handles CV parsing, normalization, and workflow orchestration.  
+Each uploaded applicant is converted into the same structured schema used across the system, so internal and external candidates can be evaluated consistently.  
+
+The repo includes `bremo_v2.json`, which contains the required structured fields for candidates, team context, scenarios, and analysis inputs. This acts as the source data contract for the pipeline and ensures every agent receives clean, predictable input.
