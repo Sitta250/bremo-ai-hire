@@ -50,11 +50,11 @@ export default function ThemeSelect({
         type="button"
         disabled={disabled}
         onClick={() => !disabled && setOpen((o) => !o)}
-        className={`w-full flex items-center justify-between bg-secondary rounded-xl px-4 py-3.5 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-primary ${
+        className={`w-full flex items-center justify-between bg-secondary/60 border border-border/40 rounded px-3.5 py-2.5 text-sm transition-all focus:outline-none focus:ring-1 focus:ring-primary/50 ${
           disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-secondary/80 cursor-pointer"
-        } ${open ? "ring-2 ring-primary" : ""}`}
+        } ${open ? "ring-1 ring-primary/50 border-primary/40" : ""}`}
       >
-        <span className={selectedLabel ? "text-foreground" : "text-muted-foreground"}>
+        <span className={selectedLabel ? "text-foreground" : "text-muted-foreground/80"}>
           {selectedLabel ?? placeholder}
         </span>
         <ChevronDown
@@ -67,10 +67,10 @@ export default function ThemeSelect({
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.15 }}
-          className="absolute z-50 mt-2 w-full bg-card border border-border/60 rounded-xl overflow-hidden shadow-2xl shadow-black/40"
+          className="absolute z-50 mt-1 w-full bg-card border border-border/60 rounded-lg overflow-hidden shadow-lg shadow-foreground/10"
         >
           {/* Search input */}
-          <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border/40">
+          <div className="flex items-center gap-2 px-3 py-2 border-b border-border/40">
             <Search className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
             <input
               ref={searchRef}

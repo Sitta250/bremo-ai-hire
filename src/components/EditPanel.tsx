@@ -1,12 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Upload, X, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import ThemeSelect from "@/components/ThemeSelect";
-import { j01Data, j02Data, j03Data } from "@/data/job_desc";
-import { S01Data, S02Data, S03Data, S04Data, S05Data } from "@/data/scenarios";
+type JobDescData = { job_id: string; title: string };
+type ScenarioData = { scenario_id: string; scenario_name: string };
+type TeamData = { team_profile_id: string; team_name: string };
 
-const JOB_ROLES = [j01Data, j02Data, j03Data].map((j) => ({ id: j.job_id, title: j.title }));
-const SCENARIOS = [S01Data, S02Data, S03Data, S04Data, S05Data].map((s) => ({ id: s.scenario_id, name: s.scenario_name }));
+const JOB_MODULES = import.meta.glob("../data/job_desc/j*.ts", { eager: true }) as Record<string, { default: JobDescData }>;
+const SCENARIO_MODULES = import.meta.glob("../data/scenarios/S*.ts", { eager: true }) as Record<string, { default: ScenarioData }>;
+const TEAM_MODULES = import.meta.glob("../data/teams/t*.ts", { eager: true }) as Record<string, { default: TeamData }>;
+const JOB_ROLES = Object.values(JOB_MODULES).map((m) => m.default).sort((a, b) => a.title.localeCompare(b.title));
+const SCENARIOS = Object.values(SCENARIO_MODULES).map((m) => m.default).sort((a, b) => a.scenario_name.localeCompare(b.scenario_name));
+const TEAMS = Object.values(TEAM_MODULES).map((m) => m.default).sort((a, b) => a.team_name.localeCompare(b.team_name));
 
 function readFileAsText(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -19,8 +24,10 @@ function readFileAsText(file: File): Promise<string> {
 
 interface EditPanelProps {
   currentRole: string;
+  currentTeam: string;
   currentScenario: string;
-  onConfirm: (role: string, scenario: string) => void;
+  field: "role" | "team" | "scenario" | "both";
+  onConfirm: (role: string, team: string, scenario: string) => void;
   onCancel: () => void;
 }
 
@@ -37,10 +44,10 @@ function FieldUpload({
 }) {
   const ref = useRef<HTMLInputElement>(null);
   return fileName ? (
-    <div className="flex items-center justify-between bg-primary/10 border border-primary/20 rounded-xl px-3 py-2.5">
+    <div className="flex items-center justify-between bg-primary/10 border border-primary/20 rounded px-3 py-2">
       <div className="flex items-center gap-2 min-w-0">
-        <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
-        <span className="text-xs font-label font-bold text-primary truncate">{fileName}</span>
+        <FileText className="w-3 h-3 text-primary/70 shrink-0" />
+        <span className="text-xs text-primary/80 truncate">{fileName}</span>
       </div>
       <button onClick={onClear} className="text-muted-foreground hover:text-danger ml-2 shrink-0">
         <X className="w-3 h-3" />
@@ -49,10 +56,10 @@ function FieldUpload({
   ) : (
     <div
       onClick={() => ref.current?.click()}
-      className="border border-dashed border-border/40 rounded-xl px-3 py-2.5 flex items-center gap-2 cursor-pointer hover:border-primary/40 hover:bg-primary/5 transition-all group"
+      className="border border-dashed border-border/40 rounded px-3 py-2 flex items-center gap-2 cursor-pointer hover:border-primary/30 hover:bg-primary/5 transition-all group"
     >
-      <Upload className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-      <p className="text-[10px] font-label uppercase tracking-widest font-bold text-muted-foreground">
+      <Upload className="w-3 h-3 text-muted-foreground/70 group-hover:text-primary/80 transition-colors shrink-0" />
+      <p className="text-xs font-label uppercase tracking-widest text-muted-foreground">
         Upload .txt or .json
       </p>
       <input ref={ref} type="file" accept={accept} onChange={onFile} className="hidden" />
@@ -60,11 +67,18 @@ function FieldUpload({
   );
 }
 
-export default function EditPanel({ currentRole, currentScenario, onConfirm, onCancel }: EditPanelProps) {
+export default function EditPanel({ currentRole, currentTeam, currentScenario, field, onConfirm, onCancel }: EditPanelProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const showRole = field === "role" || field === "both";
+  const showTeam = field === "team" || field === "both";
+  const showScenario = field === "scenario" || field === "both";
   // Role state
   const [selectedRole, setSelectedRole] = useState(currentRole);
   const [customRole, setCustomRole] = useState("");
   const [roleFileName, setRoleFileName] = useState("");
+
+  // Team state
+  const [selectedTeam, setSelectedTeam] = useState(currentTeam);
 
   // Scenario state
   const [selectedScenario, setSelectedScenario] = useState(currentScenario);
@@ -72,8 +86,20 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
   const [scenarioFileName, setScenarioFileName] = useState("");
 
   const activeRole = customRole || selectedRole;
+  const activeTeam = selectedTeam;
   const activeScenario = customScenario || selectedScenario;
-  const canConfirm = activeRole && activeScenario;
+  const canConfirm = (!showRole || activeRole) && (!showTeam || activeTeam) && (!showScenario || activeScenario);
+
+  useEffect(() => {
+    const handleOutside = (event: MouseEvent) => {
+      if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
+        onCancel();
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [onCancel]);
 
   // Role handlers
   const handleRoleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,14 +146,14 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.2 }}
-      className="fixed top-[65px] left-0 w-full z-40 bg-background/95 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-black/30"
+      className="fixed top-[57px] left-0 w-full z-40 bg-background border-b border-border/60 shadow-md shadow-foreground/8"
     >
-      <div className="max-w-6xl mx-auto px-8 py-6">
-        <div className="grid grid-cols-2 gap-8 mb-5">
+      <div ref={panelRef} className="max-w-6xl mx-auto px-8 py-6">
+        <div className={`grid gap-8 mb-5 ${field === "both" ? "grid-cols-3" : "grid-cols-1 max-w-sm"}`}>
 
           {/* Role */}
-          <div>
-            <p className="text-[9px] font-label uppercase tracking-widest text-muted-foreground/60 mb-3">Role</p>
+          {showRole && <div>
+            <p className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-3">Role</p>
             <ThemeSelect
               options={JOB_ROLES.map((r) => ({ value: r.title, label: r.title }))}
               value={selectedRole}
@@ -137,7 +163,7 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
             />
             <div className="flex items-center gap-3 mb-3">
               <div className="flex-1 h-px bg-border/40" />
-              <span className="text-[9px] font-label uppercase tracking-wider text-muted-foreground">or</span>
+              <span className="text-xs font-label text-muted-foreground">or</span>
               <div className="flex-1 h-px bg-border/40" />
             </div>
             <input
@@ -145,7 +171,7 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
               value={customRole}
               onChange={(e) => { setCustomRole(e.target.value); if (e.target.value) { setSelectedRole(""); setRoleFileName(""); } }}
               placeholder="e.g., Head of battery cell manufacturing"
-              className="w-full bg-secondary text-foreground rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all mb-3"
+              className="w-full bg-secondary/60 text-foreground rounded px-3.5 py-2.5 text-sm placeholder:text-muted-foreground/70 border border-border/40 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/40 transition-all mb-3"
             />
             <FieldUpload
               fileName={roleFileName}
@@ -153,13 +179,24 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
               onClear={clearRoleFile}
               accept=".txt,.json"
             />
-          </div>
+          </div>}
+
+          {/* Team */}
+          {showTeam && <div>
+            <p className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-3">Team</p>
+            <ThemeSelect
+              options={TEAMS.map((team) => ({ value: team.team_name, label: team.team_name }))}
+              value={selectedTeam}
+              onChange={setSelectedTeam}
+              placeholder="Select a team…"
+            />
+          </div>}
 
           {/* Scenario */}
-          <div>
-            <p className="text-[9px] font-label uppercase tracking-widest text-muted-foreground/60 mb-3">Scenario</p>
+          {showScenario && <div>
+            <p className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-3">Scenario</p>
             <ThemeSelect
-              options={SCENARIOS.map((s) => ({ value: s.name, label: s.name }))}
+              options={SCENARIOS.map((s) => ({ value: s.scenario_name, label: s.scenario_name }))}
               value={selectedScenario}
               onChange={(val) => { setSelectedScenario(val); setCustomScenario(""); setScenarioFileName(""); }}
               placeholder="Select a scenario…"
@@ -167,7 +204,7 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
             />
             <div className="flex items-center gap-3 mb-3">
               <div className="flex-1 h-px bg-border/40" />
-              <span className="text-[9px] font-label uppercase tracking-wider text-muted-foreground">or</span>
+              <span className="text-xs font-label text-muted-foreground">or</span>
               <div className="flex-1 h-px bg-border/40" />
             </div>
             <input
@@ -175,7 +212,7 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
               value={customScenario}
               onChange={(e) => { setCustomScenario(e.target.value); if (e.target.value) { setSelectedScenario(""); setScenarioFileName(""); } }}
               placeholder="e.g., Sudden CEO departure with negative PR impact"
-              className="w-full bg-secondary text-foreground rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all mb-3"
+              className="w-full bg-secondary/60 text-foreground rounded px-3.5 py-2.5 text-sm placeholder:text-muted-foreground/70 border border-border/40 focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/40 transition-all mb-3"
             />
             <FieldUpload
               fileName={scenarioFileName}
@@ -183,24 +220,28 @@ export default function EditPanel({ currentRole, currentScenario, onConfirm, onC
               onClear={clearScenarioFile}
               accept=".txt,.json"
             />
-          </div>
+          </div>}
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-end gap-3 border-t border-white/5 pt-4">
+        <div className="flex items-center justify-end gap-2.5 border-t border-border/40 pt-4">
           <button
             onClick={onCancel}
-            className="px-5 py-2 text-[10px] font-label font-bold uppercase tracking-wider border border-border rounded-lg text-foreground hover:bg-secondary transition-colors"
+            className="px-4 py-2 text-xs font-label font-semibold uppercase tracking-wide border border-border/50 rounded text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
           >
             Cancel
           </button>
           <button
-            onClick={() => canConfirm && onConfirm(activeRole, activeScenario)}
+            onClick={() => canConfirm && onConfirm(
+              showRole ? activeRole : currentRole,
+              showTeam ? activeTeam : currentTeam,
+              showScenario ? activeScenario : currentScenario
+            )}
             disabled={!canConfirm}
-            className={`px-6 py-2 text-[10px] font-label font-bold uppercase tracking-wider rounded-lg transition-colors ${
+            className={`px-5 py-2 text-xs font-label font-semibold uppercase tracking-wide rounded transition-colors ${
               canConfirm
-                ? "bg-primary text-white hover:bg-primary/90"
-                : "bg-secondary text-muted-foreground cursor-not-allowed"
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "bg-secondary text-muted-foreground cursor-not-allowed border border-border/40"
             }`}
           >
             Confirm

@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Sun, Moon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import IntakeForm from "@/components/IntakeForm";
+import TalentPoolPanel from "@/components/TalentPoolPanel";
 import EditPanel from "@/components/EditPanel";
 import ResultsView from "@/components/ResultsView";
-import { mockResults } from "@/data/mockData";
-import type { SearchResult } from "@/data/mockData";
+import { internalPool, mockResults } from "@/data/mockData";
+import type { InternalPoolEntry, SearchResult } from "@/data/mockData";
 
 interface SearchParams {
   role: string;
+  roleInfo: Record<string, unknown>;
+  team: string;
+  teamInfo: Record<string, unknown>;
   poolType: "internal" | "hybrid";
+  selectedInternalIds: string[];
+  internalCandidates: InternalPoolEntry[];
   scenario: string;
+  scenarioInfo: Record<string, unknown>;
   uploadedFiles: string[];
 }
 
@@ -17,95 +25,175 @@ export default function Index() {
   const [state, setState] = useState<"intake" | "loading" | "results">("intake");
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
   const [results, setResults] = useState<SearchResult | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [editingField, setEditingField] = useState<"role" | "team" | "scenario" | "both" | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const handleSubmit = (data: SearchParams) => {
-    setSearchParams(data);
-    setState("loading");
+  // Talent pool state (lifted up so handleSubmit can access it)
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+  const [selectedInternalIds, setSelectedInternalIds] = useState<string[]>(() => internalPool.map((candidate) => candidate.id));
 
-    // Simulated 2-second delay
-    setTimeout(() => {
-      setResults(mockResults);
-      setState("results");
-    }, 2000);
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    return (localStorage.getItem("bremo-theme") as "dark" | "light") || "dark";
+  });
+
+  useEffect(() => {
+    if (theme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    localStorage.setItem("bremo-theme", theme);
+  }, [theme]);
+
+  const runSearch = (params: SearchParams) => {
+    return new Promise<SearchResult>((resolve) => {
+      setTimeout(() => resolve(mockResults), 2000);
+    });
   };
 
-  const handleEdit = () => setIsEditing(true);
+  const handleSubmit = async (data: {
+    role: string;
+    roleInfo: Record<string, unknown>;
+    team: string;
+    teamInfo: Record<string, unknown>;
+    scenario: string;
+    scenarioInfo: Record<string, unknown>;
+  }) => {
+    const params: SearchParams = {
+      role: data.role,
+      roleInfo: data.roleInfo,
+      team: data.team,
+      teamInfo: data.teamInfo,
+      scenario: data.scenario,
+      scenarioInfo: data.scenarioInfo,
+      poolType: uploadedFiles.length > 0 ? "hybrid" : "internal",
+      selectedInternalIds,
+      internalCandidates: internalPool.filter((candidate) => selectedInternalIds.includes(candidate.id)),
+      uploadedFiles,
+    };
+    setSearchParams(params);
+    setState("loading");
+    const result = await runSearch(params);
+    setResults(result);
+    setState("results");
+  };
 
-  const handleEditConfirm = (role: string, scenario: string) => {
-    setSearchParams((prev) => prev ? { ...prev, role, scenario } : prev);
-    setIsEditing(false);
+  const handleEdit = () => setEditingField("both");
+
+  const handleEditConfirm = async (role: string, team: string, scenario: string) => {
+    const updated = searchParams ? { ...searchParams, role, team, scenario } : null;
+    setSearchParams(updated);
+    setEditingField(null);
+    if (!updated) return;
+    setIsRefreshing(true);
+    const result = await runSearch(updated);
+    setResults(result);
+    setIsRefreshing(false);
   };
 
   const handleNewSearch = () => {
     setState("intake");
     setSearchParams(null);
     setResults(null);
-    setIsEditing(false);
+    setEditingField(null);
+    setSelectedInternalIds(internalPool.map((candidate) => candidate.id));
   };
 
   return (
     <div className="min-h-screen bg-background">
       {/* Fixed nav header */}
-      <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl flex items-center justify-between px-8 py-4 border-b border-white/5">
+      <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-md px-8 py-3.5 border-b border-border/60">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center">
         {/* Logo */}
-        <div className="flex items-center gap-2 shrink-0">
-          <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center shrink-0">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <div className="flex items-center gap-2.5 shrink-0 justify-self-start">
+          <div className="w-6 h-6 rounded bg-primary/90 flex items-center justify-center shrink-0">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
               <rect x="2" y="2" width="5" height="5" rx="1" fill="white" />
               <rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity="0.6" />
               <rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity="0.6" />
               <rect x="9" y="9" width="5" height="5" rx="1" fill="white" opacity="0.3" />
             </svg>
           </div>
-          <span className="font-headline font-black tracking-tighter text-xl uppercase text-foreground">
+          <span className="font-headline font-bold tracking-tight text-base text-foreground">
             Br<span className="text-primary">e</span>mo
           </span>
+          <span className="text-[11px] font-label uppercase tracking-widest text-muted-foreground/70 border border-border/60 rounded px-1.5 py-0.5 ml-1">
+            Intelligence
+          </span>
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="ml-2 w-7 h-7 flex items-center justify-center rounded border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          </button>
         </div>
 
         {/* Results: role + scenario summary */}
         {state === "results" && searchParams && (
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-6">
-              <div className="text-center">
-                <p className="text-[9px] font-label uppercase tracking-widest text-muted-foreground/60 mb-0.5">Role</p>
-                <p className="text-sm font-headline font-bold text-foreground leading-tight">{searchParams.role}</p>
-              </div>
-              <div className="w-px h-8 bg-border/50" />
-              <div className="text-center">
-                <p className="text-[9px] font-label uppercase tracking-widest text-muted-foreground/60 mb-0.5">Scenario</p>
-                <p className="text-sm font-headline font-bold text-primary leading-tight">{searchParams.scenario}</p>
-              </div>
+          <div className="flex items-center gap-5 justify-self-center">
+            <div className="flex items-center gap-5">
+              <button
+                onClick={() => setEditingField(editingField === "role" ? null : "role")}
+                className="text-left group cursor-pointer"
+              >
+                <p className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-0.5">Role</p>
+                <p className={`text-sm font-medium leading-tight transition-colors max-w-[180px] truncate ${editingField === "role" ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>{searchParams.role}</p>
+              </button>
+              <div className="w-px h-7 bg-border/60" />
+              <button
+                onClick={() => setEditingField(editingField === "team" ? null : "team")}
+                className="text-left group cursor-pointer"
+              >
+                <p className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-0.5">Team</p>
+                <p className={`text-sm font-medium leading-tight transition-colors max-w-[220px] truncate ${editingField === "team" ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>{searchParams.team}</p>
+              </button>
+              <div className="w-px h-7 bg-border/60" />
+              <button
+                onClick={() => setEditingField(editingField === "scenario" ? null : "scenario")}
+                className="text-left group cursor-pointer"
+              >
+                <p className="text-xs font-label uppercase tracking-widest text-muted-foreground mb-0.5">Scenario</p>
+                <p className={`text-sm font-medium leading-tight transition-colors max-w-[200px] truncate ${editingField === "scenario" ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>{searchParams.scenario}</p>
+              </button>
             </div>
-            <div className="flex items-center gap-2 ml-4">
+          </div>
+        )}
+
+        <div className="flex items-center gap-2 justify-self-end">
+          {state === "results" && searchParams && (
+            <>
               <button
                 onClick={handleEdit}
-                className={`px-4 py-1.5 text-[10px] font-label font-bold uppercase tracking-wider border rounded transition-colors ${
-                  isEditing
-                    ? "border-primary text-primary bg-primary/10"
-                    : "border-border text-foreground hover:bg-secondary"
+                className={`px-3 py-1.5 text-xs font-label font-semibold uppercase tracking-wide border rounded transition-colors ${
+                  editingField === "both"
+                    ? "border-primary/60 text-primary bg-primary/10"
+                    : "border-border/60 text-muted-foreground hover:text-foreground hover:border-border"
                 }`}
               >
                 Edit
               </button>
               <button
                 onClick={handleNewSearch}
-                className="px-4 py-1.5 text-[10px] font-label font-bold uppercase tracking-wider bg-primary text-white rounded hover:bg-primary/90 transition-colors"
+                className="px-3 py-1.5 text-xs font-label font-semibold uppercase tracking-wide bg-primary/90 text-primary-foreground rounded hover:bg-primary transition-colors"
               >
                 New Search
               </button>
-            </div>
-          </div>
-        )}
+            </>
+          )}
+        </div>
+        </div>
       </header>
 
       <AnimatePresence>
-        {isEditing && searchParams && (
+        {editingField && searchParams && (
           <EditPanel
             currentRole={searchParams.role}
+            currentTeam={searchParams.team}
             currentScenario={searchParams.scenario}
+            field={editingField}
             onConfirm={handleEditConfirm}
-            onCancel={() => setIsEditing(false)}
+            onCancel={() => setEditingField(null)}
           />
         )}
       </AnimatePresence>
@@ -116,9 +204,24 @@ export default function Index() {
             key="intake"
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.4 }}
-            className="min-h-screen flex items-center justify-center pt-28 pb-12"
+            className="flex pt-[57px] h-screen"
           >
-            <IntakeForm onSubmit={handleSubmit} isLoading={state === "loading"} />
+            {/* Left 1/3 — form */}
+            <div className="w-[360px] shrink-0 border-r border-border/60 overflow-y-auto flex flex-col">
+              <div className="flex-1 px-6 py-7">
+                <IntakeForm onSubmit={handleSubmit} isLoading={state === "loading"} />
+              </div>
+            </div>
+
+            {/* Right 2/3 — talent pool */}
+            <div className="flex-1 overflow-y-auto bg-secondary/10">
+              <TalentPoolPanel
+                uploadedFiles={uploadedFiles}
+                onFilesChange={setUploadedFiles}
+                selectedInternalIds={selectedInternalIds}
+                onSelectedInternalIdsChange={setSelectedInternalIds}
+              />
+            </div>
           </motion.div>
         )}
 
@@ -128,9 +231,40 @@ export default function Index() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="pt-20"
+            className="pt-20 relative"
           >
             <ResultsView results={results} />
+
+            <AnimatePresence>
+              {isRefreshing && (
+                <motion.div
+                  key="reloading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="fixed inset-x-0 bottom-0 top-[57px] bg-background z-30 flex flex-col items-center justify-center gap-6"
+                >
+                  <div className="flex flex-col items-center gap-4">
+                    <svg className="animate-spin w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                      <path className="opacity-80" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <div className="text-center">
+                      <p className="text-sm font-headline font-semibold text-foreground mb-1">Re-analyzing candidates</p>
+                      {searchParams && (
+                        <p className="text-sm text-muted-foreground">
+                          {searchParams.role} · {searchParams.scenario}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs font-label uppercase tracking-widest text-muted-foreground">
+                    Powered by AI Evaluation Agents
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
