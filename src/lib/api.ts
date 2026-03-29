@@ -15,25 +15,14 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     );
   }
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 120_000);
-
   let response: Response;
   try {
     response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-      signal: controller.signal,
     });
   } catch (err: unknown) {
-    clearTimeout(timeoutId);
-    if (err instanceof DOMException && err.name === "AbortError") {
-      throw new Error(
-        "Request timed out after 120 seconds. The n8n workflow may be too slow or unreachable."
-      );
-    }
-    // "Failed to fetch" — network or CORS error
     throw new Error(
       "Could not reach the n8n webhook. Check that:\n" +
       "1. Your n8n workflow is Active (not just in Test mode)\n" +
@@ -41,8 +30,6 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
       "3. The n8n server is running and accessible\n\n" +
       `Original error: ${err instanceof Error ? err.message : String(err)}`
     );
-  } finally {
-    clearTimeout(timeoutId);
   }
 
   const text = await response.text();
