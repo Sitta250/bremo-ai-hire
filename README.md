@@ -8,6 +8,7 @@ bremo-insight-hiring.lovable.app
 <img width="1512" height="819" alt="image" src="https://github.com/user-attachments/assets/8364295f-a87e-45f6-a3f9-481ccaca38a4" />
 
 <img width="255" height="644" alt="image" src="https://github.com/user-attachments/assets/f764242d-0a0f-4094-b460-6480ded5b56d" />
+
 ---
 <img width="685" height="886" alt="image" src="https://github.com/user-attachments/assets/8e69a816-c55b-4729-9460-c5ae22b4397f" />
 
