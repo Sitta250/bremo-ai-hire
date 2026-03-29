@@ -43,6 +43,9 @@ export interface DeliberationEntry {
   evidence_highlight: string | null;
 }
 
+/** ai_rationale can be a plain string or an object with full_text/bullets */
+export type AiRationale = string | { full_text: string; bullets?: string[] };
+
 export interface SummaryCandidate {
   rank: number;
   candidate_id: string;
@@ -50,7 +53,7 @@ export interface SummaryCandidate {
   candidate_type: string;
   composite_label: string;
   bremo_score: number;
-  ai_rationale: string;
+  ai_rationale: AiRationale;
   intelligence_breakdown: IntelligenceCriterion[];
   core_strengths: string[];
   critical_risks: string[];

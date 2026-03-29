@@ -10,7 +10,14 @@ import {
 import CompetencyRadar from "./CompetencyRadar";
 import DeliberationTrace from "./DeliberationTrace";
 import SpeedVsFitCard from "./SpeedVsFitCard";
-import type { SummaryCandidate, SummaryResult } from "@/lib/types";
+import type { AiRationale, SummaryCandidate, SummaryResult } from "@/lib/types";
+
+/** Resolves ai_rationale whether it arrives as a string or as {full_text, bullets} */
+function resolveRationale(rationale: AiRationale): string {
+  if (!rationale) return "";
+  if (typeof rationale === "string") return rationale;
+  return rationale.full_text ?? "";
+}
 
 interface ResultsViewProps {
   summaryResult: SummaryResult;
@@ -72,7 +79,7 @@ function CandidateListItem({
           <p className="mt-1 text-xs font-label font-semibold uppercase tracking-wide text-primary/70">
             {candidate.composite_label}
           </p>
-          <p className="mt-2 line-clamp-2 text-sm text-foreground/80">{candidate.ai_rationale}</p>
+          <p className="mt-2 line-clamp-2 text-sm text-foreground/80">{resolveRationale(candidate.ai_rationale)}</p>
         </div>
         <div className="shrink-0 text-right">
           <span className="block text-xs font-label uppercase tracking-widest text-muted-foreground mb-0.5">
@@ -99,6 +106,7 @@ function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
   }, [candidate.intelligence_breakdown, sortOrder]);
 
   const stabilityLabel = candidate.stability_label ?? "Stable";
+  const stabilityNorm = stabilityLabel.toUpperCase();
 
   return (
     <motion.div
@@ -145,7 +153,7 @@ function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
                 <Sparkles className="w-3.5 h-3.5 text-muted-foreground/70" />
                 <h4 className="text-xs font-label uppercase tracking-widest text-muted-foreground">AI Rationale</h4>
               </div>
-              <p className="text-sm text-foreground/85 leading-relaxed">{candidate.ai_rationale}</p>
+              <p className="text-sm text-foreground/85 leading-relaxed">{resolveRationale(candidate.ai_rationale)}</p>
             </div>
 
             <div className="col-span-12 lg:col-span-8">
@@ -200,9 +208,9 @@ function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
 
               <div className="mb-3">
                 <span className={`inline-flex rounded border px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-[0.18em] ${
-                  stabilityLabel === "Stable"
+                  stabilityNorm === "STABLE" || stabilityNorm === "ROBUST"
                     ? "border-success/20 bg-success/10 text-success"
-                    : stabilityLabel === "Fragile"
+                    : stabilityNorm === "FRAGILE"
                       ? "border-warning/20 bg-warning/10 text-warning"
                       : "border-danger/20 bg-danger/10 text-danger"
                 }`}>

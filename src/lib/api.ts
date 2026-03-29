@@ -21,13 +21,29 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     body: JSON.stringify(payload),
   });
 
+  // Read as text first so we can show a useful error if the body is empty or not valid JSON
+  const text = await response.text();
+
   if (!response.ok) {
     const err = new Error(
-      `Webhook request failed: ${response.status} ${response.statusText}`
+      `Webhook request failed: ${response.status} ${response.statusText}` +
+      (text ? `\n\nResponse body: ${text.slice(0, 500)}` : " (empty body)")
     );
     (err as Error & { status: number }).status = response.status;
     throw err;
   }
 
-  return response.json();
+  if (!text || text.trim() === "") {
+    throw new Error(
+      "n8n returned an empty response. Make sure your workflow has a 'Respond to Webhook' node that returns the JSON body."
+    );
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(
+      `n8n response is not valid JSON.\n\nReceived: ${text.slice(0, 500)}`
+    );
+  }
 }
