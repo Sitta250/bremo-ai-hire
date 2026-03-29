@@ -47,11 +47,39 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     );
   }
 
+  let result: unknown;
   try {
-    return JSON.parse(text);
+    result = JSON.parse(text);
   } catch {
     throw new Error(
       `n8n response is not valid JSON.\n\nReceived: ${text.slice(0, 500)}`
     );
+  }
+
+  // Unwrap n8n's { output: "<stringified JSON>" } wrapper
+  const unwrap = (obj: unknown): unknown => {
+    if (Array.isArray(obj) && obj.length > 0) {
+      return unwrap(obj[0]);
+    }
+    if (obj && typeof obj === "object" && "output" in (obj as Record<string, unknown>)) {
+      const raw = (obj as Record<string, unknown>).output;
+      if (typeof raw === "string") {
+        const cleaned = raw
+          .replace(/```json\s*/gi, "")
+          .replace(/```\s*/g, "")
+          .trim()
+          .replace(/,\s*}/g, "}")
+          .replace(/,\s*]/g, "]");
+        try {
+          return JSON.parse(cleaned);
+        } catch {
+          throw new Error(`Failed to parse nested output JSON.\n\n${cleaned.slice(0, 500)}`);
+        }
+      }
+    }
+    return obj;
+  };
+
+  return unwrap(result);
   }
 }
