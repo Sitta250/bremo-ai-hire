@@ -5,6 +5,7 @@ import IntakeForm from "@/components/IntakeForm";
 import TalentPoolPanel from "@/components/TalentPoolPanel";
 import EditPanel from "@/components/EditPanel";
 import ResultsView from "@/components/ResultsView";
+import LoadingScreen from "@/components/LoadingScreen";
 import { internalPool } from "@/data/mockData";
 import type { SummaryResult, DebugInfo } from "@/lib/types";
 import { submitIntake } from "@/lib/api";
@@ -219,7 +220,7 @@ export default function Index() {
       </AnimatePresence>
 
       <AnimatePresence mode="wait">
-        {(state === "intake" || state === "loading") && (
+        {state === "intake" && (
           <motion.div
             key="intake"
             exit={{ opacity: 0, y: -40 }}
@@ -230,7 +231,7 @@ export default function Index() {
             <div className="w-[360px] shrink-0 border-r border-border/60 overflow-y-auto flex flex-col">
               <div className="flex-1 px-6 py-7">
                 {/* Error banner */}
-                {error && state === "intake" && (
+                {error && (
                   <div className="mb-4 flex items-start gap-2.5 px-3.5 py-3 rounded-lg border border-danger/30 bg-danger/10">
                     <AlertCircle className="w-4 h-4 text-danger shrink-0 mt-0.5" />
                     <p className="text-sm text-danger leading-snug">{error}</p>
@@ -251,6 +252,8 @@ export default function Index() {
             </div>
           </motion.div>
         )}
+
+        {state === "loading" && <LoadingScreen key="loading" />}
 
         {state === "results" && summaryResult && (
           <motion.div
