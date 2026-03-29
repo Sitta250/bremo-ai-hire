@@ -1,5 +1,9 @@
 # Bremo AI Hire — End-to-End System & UI Flow
 
+<img width="1512" height="860" alt="image" src="https://github.com/user-attachments/assets/dfa8b116-ddeb-40d5-ac47-610d6bb9617b" />
+
+<img width="1512" height="819" alt="image" src="https://github.com/user-attachments/assets/8364295f-a87e-45f6-a3f9-481ccaca38a4" />
+
 ## 1. Product Goal
 
 Bremo helps HR compare internal and external candidates for a senior manufacturing role under a specific business scenario.
