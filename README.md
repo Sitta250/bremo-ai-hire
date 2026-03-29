@@ -4,6 +4,8 @@
 
 <img width="1512" height="819" alt="image" src="https://github.com/user-attachments/assets/8364295f-a87e-45f6-a3f9-481ccaca38a4" />
 
+<img width="255" height="644" alt="image" src="https://github.com/user-attachments/assets/f764242d-0a0f-4094-b460-6480ded5b56d" />
+
 ## 1. Product Goal
 
 Bremo helps HR compare internal and external candidates for a senior manufacturing role under a specific business scenario.
