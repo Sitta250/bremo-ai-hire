@@ -63,6 +63,7 @@ export interface SummaryCandidate {
   radar_profile: RadarProfile;
   mitigation_strategy: string;
   deliberation_trace: DeliberationEntry[];
+  business_impact?: string;
 }
 
 export interface SpeedVsFitEntry {
@@ -91,8 +92,8 @@ export interface TradeOff {
 export interface UiPayload {
   header: SummaryHeader;
   candidates: SummaryCandidate[];
-  speed_vs_fit: SpeedVsFit;
-  trade_off: TradeOff;
+  speed_vs_fit?: SpeedVsFit;
+  trade_off?: TradeOff;
 }
 
 export interface SummaryResult {
