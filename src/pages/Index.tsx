@@ -6,7 +6,6 @@ import TalentPoolPanel from "@/components/TalentPoolPanel";
 import EditPanel from "@/components/EditPanel";
 import ResultsView from "@/components/ResultsView";
 import { internalPool } from "@/data/mockData";
-import type { InternalPoolEntry } from "@/data/mockData";
 import type { SummaryResult, DebugInfo } from "@/lib/types";
 import { submitIntake } from "@/lib/api";
 import { validateSummaryResult } from "@/lib/validateSummaryResult";
@@ -19,7 +18,7 @@ interface SearchParams {
   teamInfo: Record<string, unknown>;
   poolType: "internal" | "hybrid";
   selectedInternalIds: string[];
-  internalCandidates: InternalPoolEntry[];
+  internalCandidates: Record<string, unknown>[];
   scenario: string;
   scenarioInfo: Record<string, unknown>;
   uploadedFiles: string[];
@@ -70,7 +69,7 @@ export default function Index() {
       scenarioInfo: data.scenarioInfo,
       poolType: uploadedFiles.length > 0 ? "hybrid" : "internal",
       selectedInternalIds,
-      internalCandidates: internalPool.filter((c) => selectedInternalIds.includes(c.id)),
+      internalCandidates: internalPool.filter((c) => selectedInternalIds.includes(c.id)).map((c) => c.fullData),
       uploadedFiles,
     };
 

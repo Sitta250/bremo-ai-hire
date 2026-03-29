@@ -1,16 +1,27 @@
+type CandidateData = { candidate_id: string; candidate_name: string; current_title: string; candidate_type: string } & Record<string, unknown>;
+
+const CANDIDATE_MODULES = import.meta.glob("./candidates/C*.ts", { eager: true }) as Record<string, { default: CandidateData }>;
+
 export interface InternalPoolEntry {
   id: string;
   name: string;
   title: string;
-  archetype: string;
+  type: string;
+  fullData: Record<string, unknown>;
 }
 
-export const internalPool: InternalPoolEntry[] = [
-  { id: "IP01", name: "Dr. Stefan Keller",  title: "VP Production, BMW Regensburg",    archetype: "Operational Steward"  },
-  { id: "IP02", name: "Fatima Al-Rashidi",  title: "Director Strategy, BMW Group",      archetype: "Strategic Navigator"  },
-  { id: "IP03", name: "Klaus Weber",        title: "Plant Manager, Dingolfing",         archetype: "Process Optimizer"    },
-  { id: "IP04", name: "Andrea Müller",      title: "Head of Quality Systems, Leipzig",  archetype: "Quality Guardian"     },
-];
+export const internalPool: InternalPoolEntry[] = Object.values(CANDIDATE_MODULES)
+  .map((mod) => {
+    const d = mod.default;
+    return {
+      id: d.candidate_id,
+      name: d.candidate_name,
+      title: d.current_title,
+      type: d.candidate_type,
+      fullData: d as Record<string, unknown>,
+    };
+  })
+  .sort((a, b) => a.id.localeCompare(b.id));
 
 export interface SpeedVsFitEntry {
   candidate_id: string;
