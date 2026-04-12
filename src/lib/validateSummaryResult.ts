@@ -12,9 +12,6 @@ export function validateSummaryResult(data: unknown): SummaryResult {
 
   const result = data as Record<string, unknown>;
 
-  if (!result.decision_brief || typeof result.decision_brief !== "object") {
-    throw new Error("Invalid Summary Agent response format: missing decision_brief");
-  }
 
   if (!result.ui_payload || typeof result.ui_payload !== "object") {
     throw new Error("Invalid Summary Agent response format: missing ui_payload");

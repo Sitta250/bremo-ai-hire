@@ -1,14 +1,5 @@
 /** All types that match the Summary Agent output contract. */
 
-export interface DecisionBrief {
-  executive_summary: string;
-  why_this_candidate: string;
-  what_gives_us_pause: string;
-  the_alternative: string;
-  confidence_statement: string;
-  before_you_decide: string[];
-}
-
 export interface SummaryHeader {
   role_title: string;
   scenario_name: string;
@@ -97,7 +88,6 @@ export interface UiPayload {
 }
 
 export interface SummaryResult {
-  decision_brief: DecisionBrief;
   ui_payload: UiPayload;
 }
 
