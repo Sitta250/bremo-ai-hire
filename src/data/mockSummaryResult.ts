@@ -1,24 +1,6 @@
 import type { SummaryResult } from "@/lib/types";
 
 export const mockSummaryResult: SummaryResult = {
-  decision_brief: {
-    executive_summary:
-      "Under a Supply Chain Crisis scenario, Maria Santos is the top-ranked candidate with a Bremo score of 8.41. Her directly relevant crisis management and dual-supplier pivot experience is a strong match. Dr. Stefan Keller is the best internal alternative — available immediately, but at a 0.89-point fit cost.",
-    why_this_candidate:
-      "Santos led Stellantis through the 2021 semiconductor crisis with 91% production retention versus a 70% industry average. She executed dual-sourcing of 14 Tier-1 suppliers within 6 months and managed 3 plants across 2 countries. These are direct analogues to the current scenario's demands.",
-    what_gives_us_pause:
-      "Her earliest start is 14 weeks out due to a contractual notice period. Cultural integration from Stellantis Iberia into BMW Regensburg is a moderate risk — different operating models, team structures, and decision-making norms will require active onboarding.",
-    the_alternative:
-      "Dr. Stefan Keller can start immediately and carries 12 years of institutional knowledge including deep supplier relationships and works council trust. He scores 0.89 points lower, with the gap almost entirely explained by an untested crisis management profile at this scale.",
-    confidence_statement:
-      "High confidence (82%) based on Tier-1 verified evidence for the top two criteria. The remaining variance is driven by two Tier-2 scores on Santos that could shift under deeper reference verification.",
-    before_you_decide: [
-      "Confirm whether the crisis timeline permits a 14-week start delay for Santos.",
-      "Verify Santos's semiconductor pivot credentials with former Stellantis Iberia board members.",
-      "Assess whether Keller can be supplemented with an external crisis advisor for the first 90 days.",
-      "Re-run with EV Acceleration scenario — the ranking changes materially.",
-    ],
-  },
   ui_payload: {
     header: {
       role_title: "Head of Production — EMEA",
