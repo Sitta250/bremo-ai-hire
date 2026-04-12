@@ -8,29 +8,13 @@ const data = {
   "years_experience_total": 26,
   "years_in_current_role": 5,
   "years_at_current_employer": 19,
-  "nationality": "German",
-  "languages": [
-    "German (native)",
-    "English (C2)"
-  ],
   "education": [
     {
       "degree": "Dr.-Ing. Production Systems",
-      "institution": "Karlsruhe Institute of Technology",
-      "year": 2000,
-      "distinction": "Thesis on modular assembly control systems"
     },
     {
       "degree": "Dipl.-Ing. Mechanical Engineering",
-      "institution": "TU Darmstadt",
-      "year": 1996,
-      "distinction": "Very good"
     }
-  ],
-  "certifications": [
-    "Lean Manufacturing Expert (BMW Group, 2010)",
-    "Six Sigma Black Belt (2008)",
-    "BMW Group Executive Leadership Programme (2017)"
   ],
   "career_history": [
     {
@@ -54,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -77,7 +60,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -94,7 +76,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "International move"
     },
     {
       "company": "BMW Group",
@@ -111,7 +92,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Schaeffler",
@@ -128,7 +108,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -154,78 +133,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Spartanburg",
-      "overall_rating": "4.4 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Seasoned and reliable. Global experience and scale make him one of the more credible succession options.",
-      "strengths_noted": [
-        "Large-scale scope",
-        "Good cross-plant judgment",
-        "Stable delivery"
-      ],
-      "development_areas": [
-        "Could connect better with shopfloor voice",
-        "Not especially transformative"
-      ],
-      "promotion_recommendation": "Ready for broader remit."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Spartanburg",
-      "overall_rating": "4.2 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Strong year on refresh execution and schedule discipline. Trusted by senior leadership.",
-      "strengths_noted": [
-        "Operational stability",
-        "Launch governance"
-      ],
-      "development_areas": [
-        "Needs stronger digital narrative"
-      ],
-      "promotion_recommendation": "Keep active in top succession pool."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Logistics, Spartanburg",
-        "quote": "Lukas is one of the safer hands in the network. He rarely makes unforced errors.",
-        "theme": "Low-risk operator"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Operations Manager (anonymised)",
-        "quote": "He gives structure and removes noise. You may not get poetry, but you get clarity.",
-        "theme": "Structured leadership"
-      },
-      {
-        "reviewer_role": "Shift Leader (anonymised)",
-        "quote": "He is fair, though a bit formal. People respect him.",
-        "theme": "Respected, less warm"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "Board Member, Production",
-        "quote": "Not the most exciting candidate, but very credible on scope and maturity.",
-        "theme": "Serious contender"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production",
-    "date": "2026-03-11",
-    "format": "Structured interview + case (85 min)",
     "overall_impression": "Experienced, serious, and credible on scale. Not the boldest thinker, but hard to dismiss.",
     "question_responses": [
       {
@@ -248,22 +164,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Spartanburg",
       "relationship": "Direct manager",
       "quote": "He can run a large operation without needing theatrics.",
-      "source": "Internal reference 2026-02-14"
     },
     {
-      "referee_name": "Former Head of Planning, Munich",
       "relationship": "Former manager",
       "quote": "Dependable and grown-up. Sometimes too cautious.",
-      "source": "Internal reference 2026-02-20"
     }
   ],
   "compensation": {
-    "current_base": "$260,000",
-    "current_total": "$355,000",
-    "expected_package": "€255,000 base; €345,000 total",
     "notice_period": "3 months",
     "availability": "August 2026"
   },

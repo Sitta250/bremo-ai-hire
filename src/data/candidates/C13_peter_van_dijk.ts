@@ -8,30 +8,13 @@ const data = {
   "years_experience_total": 27,
   "years_in_current_role": 5,
   "years_at_current_employer": 9,
-  "nationality": "Dutch",
-  "languages": [
-    "Dutch (native)",
-    "English (C2)",
-    "German (B2)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Mechanical Engineering",
-      "institution": "Delft University of Technology",
-      "year": 1999,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "Executive Program — Strategic Operations",
-      "institution": "Wharton",
-      "year": 2020,
-      "distinction": "Completed with distinction"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2008)",
-    "APICS CPIM (2012)",
-    "ISO 9001 Lead Auditor (2016)"
   ],
   "career_history": [
     {
@@ -55,7 +38,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Selective interest in automotive leadership"
     },
     {
       "company": "ASML",
@@ -72,7 +54,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Philips",
@@ -89,7 +70,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined ASML"
     },
     {
       "company": "Philips",
@@ -106,7 +86,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "DAF",
@@ -123,7 +102,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted externally"
     }
   ],
   "leadership_indicators": {
@@ -152,9 +130,6 @@ const data = {
   "performance_reviews": null,
   "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production",
-    "date": "2026-03-13",
-    "format": "Structured interview + panel (80 min)",
     "overall_impression": "Very credible operations executive, but clearly from a different manufacturing world. Strong brain, less obvious cultural fit.",
     "question_responses": [
       {
@@ -177,22 +152,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "VP Manufacturing, ASML",
       "relationship": "Direct manager",
       "quote": "Peter sees complexity clearly and rarely overreacts.",
-      "source": "External reference 2026-03-07"
     },
     {
-      "referee_name": "Former COO, Philips Healthcare",
       "relationship": "Former manager",
       "quote": "A very grown-up operator for complex manufacturing systems.",
-      "source": "External reference 2026-03-08"
     }
   ],
   "compensation": {
-    "current_base": "€265,000",
-    "current_total": "€360,000",
-    "expected_package": "€285,000 base; €390,000 total",
     "notice_period": "5 months",
     "availability": "November 2026"
   },

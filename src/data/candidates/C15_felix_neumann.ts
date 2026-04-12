@@ -8,29 +8,13 @@ const data = {
   "years_experience_total": 30,
   "years_in_current_role": 6,
   "years_at_current_employer": 21,
-  "nationality": "German",
-  "languages": [
-    "German (native)",
-    "English (C1)"
-  ],
   "education": [
     {
       "degree": "Dipl.-Ing. Electrical Engineering",
-      "institution": "TU Munich",
-      "year": 1996,
-      "distinction": "Graduated with distinction"
     },
     {
       "degree": "Executive Program — Strategy & Operations",
-      "institution": "St. Gallen",
-      "year": 2017,
-      "distinction": "Completed with merit"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2007)",
-    "BMW Group Executive Leadership Programme (2013)",
-    "EV Safety Leadership Certification (2020)"
   ],
   "career_history": [
     {
@@ -54,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -71,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -88,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -105,7 +86,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Infineon",
@@ -122,7 +102,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -142,78 +121,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Landshut",
-      "overall_rating": "4.5 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "One of the strongest senior EV component leaders in BMW. Serious technical and operational depth.",
-      "strengths_noted": [
-        "E-drive and electronics depth",
-        "Scale and maturity",
-        "Strong investment discipline"
-      ],
-      "development_areas": [
-        "Profile is more component-focused than full-vehicle",
-        "Less charismatic than some succession rivals"
-      ],
-      "promotion_recommendation": "Credible for broad senior manufacturing roles."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Landshut",
-      "overall_rating": "4.3 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Strong year on yield and capacity. Trusted by senior leadership on difficult technical trade-offs.",
-      "strengths_noted": [
-        "Technical judgment",
-        "Reliable delivery"
-      ],
-      "development_areas": [
-        "Needs wider vehicle-assembly visibility"
-      ],
-      "promotion_recommendation": "Maintain on top succession list."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality, Landshut",
-        "quote": "Felix is calm, exact, and almost never surprised by technical reality.",
-        "theme": "Technical authority"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Operations Manager (anonymised)",
-        "quote": "He is serious and fair. People know he understands the content.",
-        "theme": "Content credibility"
-      },
-      {
-        "reviewer_role": "Engineer (anonymised)",
-        "quote": "He asks hard questions, but they are usually the right ones.",
-        "theme": "High standards"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "Board Member, Production",
-        "quote": "A very credible senior EV manufacturing leader. The issue is fit to vehicle-assembly breadth, not raw capability.",
-        "theme": "Senior credible operator"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; Board-level production stakeholder",
-    "date": "2026-03-02",
-    "format": "Structured interview + case (85 min)",
     "overall_impression": "Experienced, serious, and technically heavyweight. Less broad on full-vehicle leadership but difficult to dismiss.",
     "question_responses": [
       {
@@ -236,16 +152,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Landshut",
       "relationship": "Direct manager",
       "quote": "Felix is the kind of leader you trust when the technical stakes are real.",
-      "source": "Internal reference 2026-02-07"
     }
   ],
   "compensation": {
-    "current_base": "€242,000",
-    "current_total": "€332,000",
-    "expected_package": "€265,000 base; €360,000 total",
     "notice_period": "3 months",
     "availability": "July 2026"
   },

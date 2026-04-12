@@ -8,31 +8,13 @@ const data = {
   "years_experience_total": 24,
   "years_in_current_role": 4,
   "years_at_current_employer": 6,
-  "nationality": "Italian",
-  "languages": [
-    "Italian (native)",
-    "English (C2)",
-    "German (B2)",
-    "French (B1)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Industrial Engineering",
-      "institution": "Politecnico di Milano",
-      "year": 2002,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "Executive Program — Global Operations",
-      "institution": "IMD",
-      "year": 2021,
-      "distinction": "Completed with distinction"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2011)",
-    "APICS CSCP (2015)",
-    "Food Safety Systems Lead Auditor (2018)"
   ],
   "career_history": [
     {
@@ -56,7 +38,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Open to automotive move"
     },
     {
       "company": "Ferrero Industrial Operations",
@@ -79,7 +60,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Tetra Pak",
@@ -96,7 +76,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined Ferrero"
     },
     {
       "company": "Tetra Pak",
@@ -113,7 +92,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "CNH Industrial",
@@ -130,7 +108,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted externally"
     }
   ],
   "leadership_indicators": {
@@ -159,9 +136,6 @@ const data = {
   "performance_reviews": null,
   "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; Head of HR Manufacturing",
-    "date": "2026-03-09",
-    "format": "Structured interview + panel (70 min)",
     "overall_impression": "Mature and credible on large-scale operations. The obvious issue is sector transfer: excellent operator, but not automotive-native.",
     "question_responses": [
       {
@@ -184,22 +158,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Chief Operations Officer, Ferrero",
       "relationship": "Direct manager",
       "quote": "Victor can scale discipline across multiple sites without creating chaos.",
-      "source": "External reference 2026-03-01"
     },
     {
-      "referee_name": "Former EVP, Tetra Pak",
       "relationship": "Former manager",
       "quote": "A serious operator with good judgment and calm authority.",
-      "source": "External reference 2026-03-03"
     }
   ],
   "compensation": {
-    "current_base": "€250,000",
-    "current_total": "€340,000",
-    "expected_package": "€270,000 base; €380,000 total",
     "notice_period": "6 months",
     "availability": "October 2026"
   },

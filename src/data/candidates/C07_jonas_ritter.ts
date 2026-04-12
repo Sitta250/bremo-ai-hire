@@ -8,29 +8,13 @@ const data = {
   "years_experience_total": 23,
   "years_in_current_role": 3,
   "years_at_current_employer": 15,
-  "nationality": "German",
-  "languages": [
-    "German (native)",
-    "English (C2)"
-  ],
   "education": [
     {
       "degree": "Dipl.-Ing. Production Engineering",
-      "institution": "TU Dresden",
-      "year": 2003,
-      "distinction": "Graduated with merit"
     },
     {
       "degree": "Executive Program — Leading Change",
-      "institution": "INSEAD",
-      "year": 2020,
-      "distinction": "Completed with distinction"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2010)",
-    "BMW Group Executive Leadership Programme (2018)",
-    "PMP (2015)"
   ],
   "career_history": [
     {
@@ -54,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -71,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -88,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "International move"
     },
     {
       "company": "BMW Group",
@@ -105,7 +86,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Volkswagen Group",
@@ -122,7 +102,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -142,78 +121,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Oxford",
-      "overall_rating": "4.3 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Credible VP-level internal operator with good cultural range. Strong on team stability and execution rhythm.",
-      "strengths_noted": [
-        "Stable operator",
-        "Good people judgment",
-        "Cross-border experience"
-      ],
-      "development_areas": [
-        "Less distinctive strategic edge",
-        "Not as deep on EV as top specialists"
-      ],
-      "promotion_recommendation": "Viable broader production candidate."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Oxford",
-      "overall_rating": "4.2 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Strong year in a politically sensitive environment. Low drama, solid delivery.",
-      "strengths_noted": [
-        "Calm execution",
-        "Good team trust"
-      ],
-      "development_areas": [
-        "Needs stronger network visibility"
-      ],
-      "promotion_recommendation": "Keep in active consideration."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of HR, Oxford",
-        "quote": "Jonas is one of the more balanced leaders here — firm without becoming abrasive.",
-        "theme": "Balanced leader"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Area Manager (anonymised)",
-        "quote": "He is clear, available, and hard to surprise.",
-        "theme": "Reliable manager"
-      },
-      {
-        "reviewer_role": "Team Lead (anonymised)",
-        "quote": "He listens, then decides. People can work with that.",
-        "theme": "Fair process"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Production",
-        "quote": "Not the loudest candidate, but very credible and broadly promotable.",
-        "theme": "Strong generalist"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production",
-    "date": "2026-03-06",
-    "format": "Structured interview + panel (75 min)",
     "overall_impression": "Good all-rounder. Hard to attack, though not obviously the highest-ceiling candidate.",
     "question_responses": [
       {
@@ -236,16 +152,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Oxford",
       "relationship": "Direct manager",
       "quote": "You can put him into a messy situation and expect adult behaviour.",
-      "source": "Internal reference 2026-02-10"
     }
   ],
   "compensation": {
-    "current_base": "£205,000",
-    "current_total": "£275,000",
-    "expected_package": "€235,000 base; €315,000 total",
     "notice_period": "3 months",
     "availability": "July 2026"
   },

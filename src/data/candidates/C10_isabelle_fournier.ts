@@ -8,30 +8,13 @@ const data = {
   "years_experience_total": 28,
   "years_in_current_role": 6,
   "years_at_current_employer": 20,
-  "nationality": "French",
-  "languages": [
-    "French (native)",
-    "German (C2)",
-    "English (C1)"
-  ],
   "education": [
     {
       "degree": "Ingénieure — Mechanical & Production Engineering",
-      "institution": "INSA Lyon",
-      "year": 1998,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "Executive Program — Senior Leadership in Manufacturing",
-      "institution": "HEC Paris",
-      "year": 2018,
-      "distinction": "Completed with distinction"
     }
-  ],
-  "certifications": [
-    "Six Sigma Black Belt (2009)",
-    "BMW Group Executive Leadership Programme (2015)",
-    "Robotics Systems Certification (2012)"
   ],
   "career_history": [
     {
@@ -55,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -72,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -89,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -106,7 +86,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Renault",
@@ -123,7 +102,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -143,78 +121,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Munich",
-      "overall_rating": "4.4 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Highly credible senior specialist-operator. Strong on technical depth, capital discipline, and delivery.",
-      "strengths_noted": [
-        "Technical authority",
-        "Capex discipline",
-        "Stable execution"
-      ],
-      "development_areas": [
-        "Style can feel hard-edged",
-        "Broader commercial exposure remains limited"
-      ],
-      "promotion_recommendation": "Ready for wider scope if paired with strong people complement."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Munich",
-      "overall_rating": "4.2 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Strong year on uptime and quality. Deeply trusted on difficult technical calls.",
-      "strengths_noted": [
-        "Automation depth",
-        "Tough-minded operator"
-      ],
-      "development_areas": [
-        "Needs softer coalition building in some forums"
-      ],
-      "promotion_recommendation": "Keep in top succession cohort."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality, Munich",
-        "quote": "Isabelle is brutally clear and usually right. People do not always enjoy it, but the plant benefits.",
-        "theme": "Hard-edged, effective"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Maintenance Manager (anonymised)",
-        "quote": "She raises standards hard, but she protects the team when they deliver.",
-        "theme": "Demanding, loyal"
-      },
-      {
-        "reviewer_role": "Production Leader (anonymised)",
-        "quote": "Not warm, but very fair. You know the game.",
-        "theme": "Clear and fair"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "Board Member, Production",
-        "quote": "Technically among the strongest operators in the pool. Style fit is the real question, not capability.",
-        "theme": "Technically elite"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production",
-    "date": "2026-03-03",
-    "format": "Structured interview + case (80 min)",
     "overall_impression": "Serious heavyweight with obvious technical authority. Social softness is limited, but she is credible.",
     "question_responses": [
       {
@@ -237,16 +152,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Munich",
       "relationship": "Direct manager",
       "quote": "If the problem is hard and technical, Isabelle is one of the safest hands in BMW.",
-      "source": "Internal reference 2026-02-08"
     }
   ],
   "compensation": {
-    "current_base": "€238,000",
-    "current_total": "€325,000",
-    "expected_package": "€260,000 base; €355,000 total",
     "notice_period": "3 months",
     "availability": "July 2026"
   },

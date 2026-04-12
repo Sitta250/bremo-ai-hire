@@ -8,31 +8,13 @@ const data = {
   "years_experience_total": 19,
   "years_in_current_role": 3,
   "years_at_current_employer": 8,
-  "nationality": "French-Moroccan",
-  "languages": [
-    "French (native)",
-    "Arabic (native)",
-    "English (C2)",
-    "German (C1)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Industrial Engineering",
-      "institution": "École Centrale Paris",
-      "year": 2007,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "Executive Certificate — Digital Operations",
-      "institution": "MIT Sloan",
-      "year": 2022,
-      "distinction": "Completed with distinction"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2014)",
-    "PMP (2016)",
-    "ISO 9001 Lead Auditor (2018)"
   ],
   "career_history": [
     {
@@ -56,7 +38,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Open to automotive role"
     },
     {
       "company": "Siemens Mobility",
@@ -73,7 +54,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Alstom",
@@ -90,7 +70,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined Siemens"
     },
     {
       "company": "Alstom",
@@ -107,7 +86,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Promoted"
     }
   ],
   "leadership_indicators": {
@@ -136,9 +114,6 @@ const data = {
   "performance_reviews": null,
   "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; Head of HR Manufacturing",
-    "date": "2026-03-12",
-    "format": "Structured interview + panel (80 min)",
     "overall_impression": "Strong external candidate. More relevant than generic outsiders because she has heavy industrialisation depth, but still not OEM-automotive proven.",
     "question_responses": [
       {
@@ -161,22 +136,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "COO, Siemens Mobility",
       "relationship": "Direct manager",
       "quote": "Nadia improves the operating system, not just the KPI headline.",
-      "source": "External reference 2026-03-05"
     },
     {
-      "referee_name": "Former Plant Director, Alstom",
       "relationship": "Former manager",
       "quote": "Very credible with engineers and senior stakeholders alike.",
-      "source": "External reference 2026-03-06"
     }
   ],
   "compensation": {
-    "current_base": "€235,000",
-    "current_total": "€315,000",
-    "expected_package": "€255,000 base; €345,000 total",
     "notice_period": "4 months",
     "availability": "September 2026"
   },

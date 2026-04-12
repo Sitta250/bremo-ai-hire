@@ -11,69 +11,35 @@ const data = {
     "workforce_situation": "Critical technical teams are fatigued, externally recruited, and increasingly skeptical of rigid hierarchical management models.",
     "financial_impact": "Replacement costs, delayed projects, productivity loss, and launch slippage could create €50-120M in cumulative impact over 12 months."
   },
-  "criteria_weight_multipliers": {
-    "C1_ev_production": 0.8,
-    "C2_ramp_up_sop": 0.7,
-    "C3_supply_chain": 0.5,
-    "C4_quality": 0.8,
-    "C5_team_leadership": 2.7,
-    "C6_pnl_budget": 0.6,
-    "C7_digital_manufacturing": 1.8,
-    "C8_stakeholder_mgmt": 1,
-    "C9_crisis_management": 0.6,
-    "C10_change_management": 2.5
-  },
   "scenario_pressures": [
     {
       "pressure": "Critical talent attrition is eroding execution capability from within",
       "impact_on_role": "The leader must retain key experts, rebuild trust, and maintain team effectiveness despite knowledge loss risk.",
-      "criteria_affected": [
-        "C5",
-        "C10"
-      ],
       "causal_reasoning": "When 15% of critical engineers are leaving or at risk, output and launch readiness begin to degrade even if external conditions are stable. Team leadership matters more because retention is strongly manager-mediated, and change management matters more because the organization must evolve how it leads and motivates talent."
     },
     {
       "pressure": "Digital talent expects modern leadership and operating practices",
       "impact_on_role": "The leader must connect manufacturing excellence with digital ambition, autonomy, and visible modernization.",
-      "criteria_affected": [
-        "C7",
-        "C10",
-        "C5"
-      ],
       "causal_reasoning": "High-value engineers and automation specialists are less likely to stay in organizations that feel operationally rigid and technologically stale. Digital manufacturing rises not only because of process improvement, but because it signals future relevance to the workforce."
     },
     {
       "pressure": "Leadership quality directly affects retention in local teams",
       "impact_on_role": "The leader must coach managers, remove friction, and create a high-commitment environment rather than relying on process authority alone.",
-      "criteria_affected": [
-        "C5",
-        "C10"
-      ],
       "causal_reasoning": "In a talent war, people do not leave abstract systems; they leave management environments. That makes large-scale leadership an economic lever, not a soft skill. Change management rises because retention requires behavior and culture shifts, not only compensation responses."
     },
     {
       "pressure": "Execution continuity depends on protecting hidden expertise networks",
       "impact_on_role": "The leader must identify critical roles, prevent cascading attrition, and redesign ways of working so knowledge is not concentrated in fragile pockets.",
-      "criteria_affected": [
-        "C5",
-        "C7",
-        "C8"
-      ],
       "causal_reasoning": "Technical organizations often run on informal knowledge hubs. Once those people leave, downstream coordination problems appear. Strong leadership and digitally enabled operating models help institutionalize knowledge and reduce dependence on a few individuals."
     }
   ],
   "emergent_criteria": [
     {
-      "id": "EC1",
       "name": "Critical Talent Retention Capability",
-      "weight": 0.13,
       "reasoning": "This scenario is fundamentally about stopping capability drain. The ability to hold and re-engage scarce technical talent becomes strategically decisive."
     },
     {
-      "id": "EC2",
       "name": "Leadership Brand Credibility with Technical Teams",
-      "weight": 0.07,
       "reasoning": "In a competitive talent market, leaders themselves become part of the employee value proposition. Some candidates can stabilize confidence; others cannot."
     }
   ],

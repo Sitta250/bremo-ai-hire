@@ -8,29 +8,13 @@ const data = {
   "years_experience_total": 21,
   "years_in_current_role": 4,
   "years_at_current_employer": 16,
-  "nationality": "German",
-  "languages": [
-    "German (native)",
-    "English (C1)"
-  ],
   "education": [
     {
       "degree": "Dipl.-Ing. Chemical Engineering",
-      "institution": "TU Berlin",
-      "year": 2005,
-      "distinction": "Graduated with distinction"
     },
     {
       "degree": "Executive Certificate — Sustainable Manufacturing",
-      "institution": "Cambridge Judge Business School",
-      "year": 2022,
-      "distinction": "Completed with merit"
     }
-  ],
-  "certifications": [
-    "Lean Expert — BMW Group (2014)",
-    "Environmental Compliance Lead (2018)",
-    "IATF 16949 Internal Auditor (2017)"
   ],
   "career_history": [
     {
@@ -54,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -71,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -88,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BASF Coatings",
@@ -105,7 +86,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -125,78 +105,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Regensburg",
-      "overall_rating": "4.4 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Strong technical and people leader. Particularly effective where quality and sustainability need to move together.",
-      "strengths_noted": [
-        "Deep technical credibility",
-        "Stable team culture",
-        "Strong compliance discipline"
-      ],
-      "development_areas": [
-        "Narrower functional scope than full-plant roles",
-        "Not the fastest decision maker"
-      ],
-      "promotion_recommendation": "Credible for a broader operations role with support."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Regensburg",
-      "overall_rating": "4.2 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Very solid year on quality and cost. Trusted by peers.",
-      "strengths_noted": [
-        "Reliable KPI delivery",
-        "Strong process control"
-      ],
-      "development_areas": [
-        "Needs broader assembly exposure"
-      ],
-      "promotion_recommendation": "Keep in succession discussions."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality, Regensburg",
-        "quote": "Sabine brings rigor without panic. That matters in paint.",
-        "theme": "Calm under pressure"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Production Coordinator (anonymised)",
-        "quote": "She notices the details others miss and explains the why, not just the rule.",
-        "theme": "Technical teacher"
-      },
-      {
-        "reviewer_role": "Shift Manager (anonymised)",
-        "quote": "Demanding but fair. There are no surprises with her.",
-        "theme": "Consistency"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Manufacturing Quality",
-        "quote": "A serious and dependable internal leader, though still somewhat functionally specialised.",
-        "theme": "Strong specialist leader"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Quality",
-    "date": "2026-03-05",
-    "format": "Structured interview + case (70 min)",
     "overall_impression": "Strong specialist operations leader with real credibility. The weakness is breadth, not quality.",
     "question_responses": [
       {
@@ -219,16 +136,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Regensburg",
       "relationship": "Direct manager",
       "quote": "She makes hard technical areas feel governable.",
-      "source": "Internal reference 2026-02-09"
     }
   ],
   "compensation": {
-    "current_base": "€198,000",
-    "current_total": "€262,000",
-    "expected_package": "€225,000 base; €305,000 total",
     "notice_period": "3 months",
     "availability": "June 2026"
   },

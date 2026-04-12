@@ -8,31 +8,13 @@ const data = {
   "years_experience_total": 14,
   "years_in_current_role": 3,
   "years_at_current_employer": 9,
-  "nationality": "Romanian",
-  "languages": [
-    "Romanian (native)",
-    "English (C2)",
-    "German (C1)",
-    "Hungarian (B1)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Manufacturing Systems Engineering",
-      "institution": "TU Cluj-Napoca",
-      "year": 2012,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "B.Sc. Mechanical Engineering",
-      "institution": "Politehnica University of Bucharest",
-      "year": 2010,
-      "distinction": "Top 15% cohort"
     }
-  ],
-  "certifications": [
-    "EV High-Voltage Safety Officer (2021)",
-    "Lean Expert — BMW Group (2020)",
-    "PMP (2022)"
   ],
   "career_history": [
     {
@@ -56,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -79,7 +60,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -96,7 +76,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -113,7 +92,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Converted to permanent"
     },
     {
       "company": "Continental",
@@ -130,7 +108,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -150,78 +127,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Debrecen",
-      "overall_rating": "4.5 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Strong operator in a hard ramp-up environment. Particularly good on people routines and HV discipline.",
-      "strengths_noted": [
-        "EV production depth",
-        "Frontline capability building",
-        "Strong execution"
-      ],
-      "development_areas": [
-        "Still light on broad budget ownership",
-        "Needs more senior external-stakeholder exposure"
-      ],
-      "promotion_recommendation": "Ready for a larger line or full-area role."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Debrecen",
-      "overall_rating": "4.3 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "High credibility in a new plant setting. Calm under launch pressure.",
-      "strengths_noted": [
-        "Rapid line stabilisation",
-        "Good team discipline"
-      ],
-      "development_areas": [
-        "Can be too detail-close"
-      ],
-      "promotion_recommendation": "High-potential succession candidate."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality, Debrecen",
-        "quote": "Elena is one of the few leaders here who can improve yield without creating fear.",
-        "theme": "High standards, low drama"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Team Leader (anonymised)",
-        "quote": "She makes expectations simple and helps you get there.",
-        "theme": "Coaching clarity"
-      },
-      {
-        "reviewer_role": "Process Engineer (anonymised)",
-        "quote": "Demanding, but she teaches instead of blaming.",
-        "theme": "Development-oriented"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP EV Production",
-        "quote": "Serious EV talent. Scale is the only real question.",
-        "theme": "High-upside internal"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP EV Production",
-    "date": "2026-03-08",
-    "format": "Structured interview + case (70 min)",
     "overall_impression": "Credible, sharp, and stronger than her age suggests. Real EV substance, but still one step short on breadth.",
     "question_responses": [
       {
@@ -244,22 +158,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Debrecen",
       "relationship": "Direct manager",
       "quote": "She gets better the harder the environment gets.",
-      "source": "Internal reference 2026-02-11"
     },
     {
-      "referee_name": "Former Head of Battery Systems, Leipzig",
       "relationship": "Former manager",
       "quote": "One of the strongest battery operations leaders below VP level.",
-      "source": "Internal reference 2026-02-19"
     }
   ],
   "compensation": {
-    "current_base": "€188,000",
-    "current_total": "€248,000",
-    "expected_package": "€220,000 base; €300,000 total",
     "notice_period": "3 months",
     "availability": "June 2026"
   },

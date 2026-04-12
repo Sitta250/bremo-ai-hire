@@ -8,29 +8,13 @@ const data = {
   "years_experience_total": 19,
   "years_in_current_role": 4,
   "years_at_current_employer": 13,
-  "nationality": "German",
-  "languages": [
-    "German (native)",
-    "English (C1)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Industrial Engineering & Management",
-      "institution": "TU Berlin",
-      "year": 2009,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "B.Sc. Mechanical Engineering",
-      "institution": "TU Berlin",
-      "year": 2007,
-      "distinction": "Very good"
     }
-  ],
-  "certifications": [
-    "Lean Expert — BMW Group (2017)",
-    "PMP (2018)",
-    "BMW Group Top Leadership Talent (2024)"
   ],
   "career_history": [
     {
@@ -54,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -71,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -88,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -105,7 +86,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Permanent role"
     },
     {
       "company": "Bosch",
@@ -122,7 +102,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -148,83 +127,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Regensburg",
-      "overall_rating": "4.5 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Strong all-round internal candidate. Blends workforce credibility with real operational control.",
-      "strengths_noted": [
-        "People engagement",
-        "Strong assembly fundamentals",
-        "Good peer collaboration"
-      ],
-      "development_areas": [
-        "Still not battle-tested at multi-plant scale",
-        "Needs bigger budget exposure"
-      ],
-      "promotion_recommendation": "Ready for next-level stretch role."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Regensburg",
-      "overall_rating": "4.3 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Very good year on output and team stability. One of the more balanced profiles in the pool.",
-      "strengths_noted": [
-        "Workforce trust",
-        "Good execution rhythm"
-      ],
-      "development_areas": [
-        "Can spend too much time building alignment"
-      ],
-      "promotion_recommendation": "Accelerate exposure."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality, Regensburg",
-        "quote": "Miriam gets people moving without creating noise. That is rarer than it should be.",
-        "theme": "Low-ego effectiveness"
-      },
-      {
-        "reviewer_role": "Head of Logistics, Regensburg",
-        "quote": "Very collaborative, sometimes almost too collaborative before a hard decision.",
-        "theme": "Strong peer partner"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Shift Leader (anonymised)",
-        "quote": "She is demanding but never distant. The team would go a long way for her.",
-        "theme": "High trust"
-      },
-      {
-        "reviewer_role": "Process Engineer (anonymised)",
-        "quote": "She fixes systems, not just people.",
-        "theme": "System thinker"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Production, BMW Group",
-        "quote": "A strong and balanced internal contender with real upward momentum.",
-        "theme": "Promotable and trusted"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production",
-    "date": "2026-03-09",
-    "format": "Structured interview + case (75 min)",
     "overall_impression": "Balanced, credible, and likely underrated. Not the flashiest candidate, but strong across many dimensions.",
     "question_responses": [
       {
@@ -247,16 +158,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Regensburg",
       "relationship": "Direct manager",
       "quote": "Miriam is one of the strongest balanced leaders coming through the system.",
-      "source": "Internal reference 2026-02-16"
     }
   ],
   "compensation": {
-    "current_base": "€203,000",
-    "current_total": "€272,000",
-    "expected_package": "€230,000 base; €315,000 total",
     "notice_period": "3 months",
     "availability": "July 2026"
   },

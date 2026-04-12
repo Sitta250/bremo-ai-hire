@@ -8,30 +8,13 @@ const data = {
   "years_experience_total": 22,
   "years_in_current_role": 5,
   "years_at_current_employer": 14,
-  "nationality": "Croatian",
-  "languages": [
-    "Croatian (native)",
-    "German (C2)",
-    "English (C1)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Materials & Production Engineering",
-      "institution": "University of Zagreb",
-      "year": 2004,
-      "distinction": "Graduated with honours"
     },
     {
       "degree": "Executive Certificate — Operations Strategy",
-      "institution": "London Business School",
-      "year": 2021,
-      "distinction": "Completed with merit"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2013)",
-    "Press Shop Safety Lead (2016)",
-    "BMW Group Senior Leadership Programme (2022)"
   ],
   "career_history": [
     {
@@ -55,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -72,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -89,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Magna",
@@ -106,7 +86,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -126,78 +105,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Munich",
-      "overall_rating": "4.2 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Strong and dependable leader in a technically demanding area. Good safety and uptime record.",
-      "strengths_noted": [
-        "Operational reliability",
-        "Safety leadership",
-        "Clear accountability"
-      ],
-      "development_areas": [
-        "Functionally specialised",
-        "Less broad transformation range"
-      ],
-      "promotion_recommendation": "Good internal option for broader operations if needed."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Munich",
-      "overall_rating": "4.1 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Consistent year with solid delivery. Not flashy, but trusted.",
-      "strengths_noted": [
-        "Tooling discipline",
-        "Calm execution"
-      ],
-      "development_areas": [
-        "Needs wider assembly and launch exposure"
-      ],
-      "promotion_recommendation": "Maintain in broader talent pool."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Maintenance, Munich",
-        "quote": "Katarina is very clear on ownership. That saves time.",
-        "theme": "Clear accountability"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Shift Leader (anonymised)",
-        "quote": "She can be blunt, but she is fair and dependable.",
-        "theme": "Tough but fair"
-      },
-      {
-        "reviewer_role": "Maintenance Planner (anonymised)",
-        "quote": "Problems don’t drift under her. Someone owns them.",
-        "theme": "Strong discipline"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Operations Excellence",
-        "quote": "A credible specialist operator with broadening potential, though not the obvious first-choice transformer.",
-        "theme": "Dependable specialist"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Operations Excellence",
-    "date": "2026-03-04",
-    "format": "Structured interview + case (70 min)",
     "overall_impression": "Strong specialist operator. Useful, but less broad and less modern than some peers.",
     "question_responses": [
       {
@@ -220,16 +136,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Munich",
       "relationship": "Direct manager",
       "quote": "She is useful because she is reliable and doesn’t hide from hard calls.",
-      "source": "Internal reference 2026-02-13"
     }
   ],
   "compensation": {
-    "current_base": "€196,000",
-    "current_total": "€257,000",
-    "expected_package": "€220,000 base; €295,000 total",
     "notice_period": "3 months",
     "availability": "June 2026"
   },

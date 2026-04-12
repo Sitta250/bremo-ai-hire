@@ -11,55 +11,25 @@ const data = {
     "workforce_situation": "Workforce stability is acceptable, with normal attrition and manageable labor planning.",
     "financial_impact": "Margin pressure remains present, but there is no acute earnings shock; underperformance would primarily affect plant efficiency and delivery reliability."
   },
-  "criteria_weight_multipliers": {
-    "C1_ev_production": 1.3,
-    "C2_ramp_up_sop": 1.1,
-    "C3_supply_chain": 0.9,
-    "C4_quality": 1.2,
-    "C5_team_leadership": 1.2,
-    "C6_pnl_budget": 1,
-    "C7_digital_manufacturing": 0.8,
-    "C8_stakeholder_mgmt": 1,
-    "C9_crisis_management": 0.5,
-    "C10_change_management": 0.7
-  },
   "scenario_pressures": [
     {
       "pressure": "Operational stability is valued over transformation heroics",
       "impact_on_role": "The leader must sustain predictable output, quality, and team performance across established EV operations rather than redesign the system.",
-      "criteria_affected": [
-        "C1",
-        "C4",
-        "C5"
-      ],
       "causal_reasoning": "Stable market and supply conditions reduce the value of emergency-response skills. Instead, the role becomes one of disciplined production leadership, where deep EV manufacturing knowledge, premium-quality rigor, and scalable people leadership drive daily business performance."
     },
     {
       "pressure": "Premium brand expectations require low-defect execution",
       "impact_on_role": "The leader must protect launch reputation and customer trust through process discipline and quality containment.",
-      "criteria_affected": [
-        "C4",
-        "C1"
-      ],
       "causal_reasoning": "In normal conditions, quality failures are less excusable because the organization has time and control. That shifts advantage toward leaders with strong production-system mastery and formal quality management discipline rather than those who mainly shine during disruption."
     },
     {
       "pressure": "Large cross-functional coordination remains necessary but not extraordinary",
       "impact_on_role": "The leader must align production, logistics, engineering, and HR, but without constant crisis escalation.",
-      "criteria_affected": [
-        "C5",
-        "C8"
-      ],
       "causal_reasoning": "Baseline operations still require strong coordination across functions, but the absence of acute external shocks means stakeholder management matters as a steady execution capability rather than an emergency lever."
     },
     {
       "pressure": "Cost discipline is important but not the dominant differentiator",
       "impact_on_role": "Budget ownership remains necessary, but small operational missteps matter less than production reliability and quality consistency.",
-      "criteria_affected": [
-        "C6",
-        "C1",
-        "C4"
-      ],
       "causal_reasoning": "Under stable conditions, BMW can tolerate routine cost optimization cycles, but not repeated output or quality instability. Therefore, P&L ownership stays relevant yet does not define the top-ranked candidate."
     }
   ],

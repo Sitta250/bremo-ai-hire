@@ -11,69 +11,35 @@ const data = {
     "workforce_situation": "Teams face sustained execution intensity, onboarding complexity, and risk of burnout during compressed launch preparation.",
     "financial_impact": "A missed or unstable launch could delay revenue recognition, damage investor confidence, and create €150-300M in launch-related value leakage."
   },
-  "criteria_weight_multipliers": {
-    "C1_ev_production": 1,
-    "C2_ramp_up_sop": 2.9,
-    "C3_supply_chain": 0.7,
-    "C4_quality": 0.8,
-    "C5_team_leadership": 1.1,
-    "C6_pnl_budget": 0.6,
-    "C7_digital_manufacturing": 2.1,
-    "C8_stakeholder_mgmt": 0.9,
-    "C9_crisis_management": 0.7,
-    "C10_change_management": 2.2
-  },
   "scenario_pressures": [
     {
       "pressure": "Board-mandated six-month launch acceleration",
       "impact_on_role": "The leader must compress preparation cycles, remove bottlenecks, and create faster decision loops across industrialization and production readiness.",
-      "criteria_affected": [
-        "C2",
-        "C10"
-      ],
       "causal_reasoning": "A shorter time window means standard launch sequencing no longer works. That forces the production leader to excel at SOP acceleration and organizational change, because the plant must adopt new ways of working and absorb more change in less time."
     },
     {
       "pressure": "Automation and digital readiness become gating factors",
       "impact_on_role": "The leader must ensure manufacturing systems, data visibility, and digital production controls are mature enough to support compressed ramp-up.",
-      "criteria_affected": [
-        "C7",
-        "C2"
-      ],
       "causal_reasoning": "When timelines compress, poor digital manufacturing maturity creates hidden delays in validation, process visibility, and issue resolution. This makes digital manufacturing disproportionately valuable, not as a modernization extra, but as a launch-enablement capability."
     },
     {
       "pressure": "Cross-functional launch dependencies multiply under time compression",
       "impact_on_role": "The leader must coordinate engineering, automation, quality, logistics, and HR while keeping the launch plan executable.",
-      "criteria_affected": [
-        "C10",
-        "C5",
-        "C8"
-      ],
       "causal_reasoning": "Compressed launches create interdependent workstreams where small delays cascade quickly. Change management rises because teams must adapt simultaneously, and leadership matters because the organization needs energy and alignment under sustained pressure."
     },
     {
       "pressure": "There is less tolerance for traditional phase-gate pacing",
       "impact_on_role": "The leader must make judgment calls faster and balance calculated risk with launch readiness.",
-      "criteria_affected": [
-        "C2",
-        "C7",
-        "C9"
-      ],
       "causal_reasoning": "In acceleration mode, waiting for complete certainty can itself become a failure mode. Ramp-up expertise matters because the leader must know which risks are acceptable, while digital visibility helps detect issues early enough to act before instability compounds."
     }
   ],
   "emergent_criteria": [
     {
-      "id": "EC1",
       "name": "Industrialization Compression Capability",
-      "weight": 0.12,
       "reasoning": "This scenario is not just a standard launch. It requires a leader who has repeatedly compressed industrial timelines while preserving execution coherence."
     },
     {
-      "id": "EC2",
       "name": "Launch Governance Velocity",
-      "weight": 0.08,
       "reasoning": "Fast but structured decision-making becomes a competitive advantage when dozens of launch dependencies must be unblocked in near real time."
     }
   ],

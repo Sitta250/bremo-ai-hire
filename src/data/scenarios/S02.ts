@@ -11,69 +11,35 @@ const data = {
     "workforce_situation": "Plant teams are under stress due to schedule instability, sequencing changes, and morale risks tied to unpredictable operating patterns.",
     "financial_impact": "Potential revenue deferral and margin erosion are severe; unmanaged disruption could create €120-250M in EBIT impact across the disruption window."
   },
-  "criteria_weight_multipliers": {
-    "C1_ev_production": 0.8,
-    "C2_ramp_up_sop": 0.6,
-    "C3_supply_chain": 2.8,
-    "C4_quality": 0.8,
-    "C5_team_leadership": 1.1,
-    "C6_pnl_budget": 0.7,
-    "C7_digital_manufacturing": 0.5,
-    "C8_stakeholder_mgmt": 2.2,
-    "C9_crisis_management": 3,
-    "C10_change_management": 0.9
-  },
   "scenario_pressures": [
     {
       "pressure": "Critical semiconductor capacity has collapsed overnight",
       "impact_on_role": "The leader must re-sequence production, reallocate constrained parts, and keep plants running without creating uncontrolled downtime or hidden shortages.",
-      "criteria_affected": [
-        "C3",
-        "C9"
-      ],
       "causal_reasoning": "A factory fire creates an immediate supply shock. That shock breaks normal planning assumptions and turns the role into a live disruption-management job. Supply chain risk management matters more because parts availability becomes the gating variable, while crisis management matters more because decisions must be made fast under incomplete information."
     },
     {
       "pressure": "Allocation decisions now have executive and commercial consequences",
       "impact_on_role": "The leader must coordinate with sales, procurement, logistics, finance, and regional leadership to decide which plants, markets, or vehicle lines receive constrained supply.",
-      "criteria_affected": [
-        "C8",
-        "C3",
-        "C6"
-      ],
       "causal_reasoning": "When supply cannot meet demand, every allocation decision creates winners and losers internally. That elevates stakeholder management because the production leader must broker alignment across powerful functions. Budget ownership matters less than the ability to preserve enterprise value through coordinated decision-making."
     },
     {
       "pressure": "Operational teams face instability and risk of reactive behavior",
       "impact_on_role": "The leader must keep teams calm, prevent poor local optimization, and sustain disciplined execution despite constant rescheduling.",
-      "criteria_affected": [
-        "C5",
-        "C9"
-      ],
       "causal_reasoning": "Crisis conditions generate local firefighting behaviors that can worsen the overall system. A leader who can maintain command structure, escalation rhythm, and role clarity prevents fragmented decisions that amplify the disruption."
     },
     {
       "pressure": "Recovery pathways are uncertain and second-source options may be politically difficult",
       "impact_on_role": "The leader must influence procurement, engineering, suppliers, and executives while balancing technical, commercial, and timing realities.",
-      "criteria_affected": [
-        "C8",
-        "C3",
-        "C9"
-      ],
       "causal_reasoning": "Because recovery is not purely operational, the role expands into cross-boundary influence. The more uncertain the recovery path, the more BMW needs a leader who can align external and internal stakeholders while continuously updating decisions under uncertainty."
     }
   ],
   "emergent_criteria": [
     {
-      "id": "EC1",
       "name": "Allocation Decision Quality Under Scarcity",
-      "weight": 0.11,
       "reasoning": "Under severe part scarcity, value creation depends on choosing where constrained supply creates the least operational and financial damage. This is not fully captured by generic production or budget criteria."
     },
     {
-      "id": "EC2",
       "name": "War-Room Command Discipline",
-      "weight": 0.09,
       "reasoning": "The role becomes a crisis command center. Leaders who can run structured daily governance, escalation, and decision cadence outperform technically capable but slower or less organized operators."
     }
   ],

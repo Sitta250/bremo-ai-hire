@@ -11,64 +11,31 @@ const data = {
     "workforce_situation": "Operations, quality, procurement, and sustainability teams must adapt to new accountability demands and more documentation-intensive processes.",
     "financial_impact": "Failure risks include delayed approvals, penalties, supplier disqualification, product disruption, and €70-160M in direct and indirect cost exposure."
   },
-  "criteria_weight_multipliers": {
-    "C1_ev_production": 0.9,
-    "C2_ramp_up_sop": 0.6,
-    "C3_supply_chain": 1,
-    "C4_quality": 2.6,
-    "C5_team_leadership": 0.9,
-    "C6_pnl_budget": 0.7,
-    "C7_digital_manufacturing": 0.7,
-    "C8_stakeholder_mgmt": 2,
-    "C9_crisis_management": 0.5,
-    "C10_change_management": 1.9
-  },
   "scenario_pressures": [
     {
       "pressure": "Battery and emissions regulation is moving from policy to operational enforcement",
       "impact_on_role": "The leader must convert regulatory requirements into daily production controls, supplier accountability, and traceability discipline.",
-      "criteria_affected": [
-        "C4",
-        "C10",
-        "C8"
-      ],
       "causal_reasoning": "Once enforcement begins, compliance failures stop being abstract legal risks and become operating risks. Quality management rises because traceability and process discipline are now part of product legitimacy, while change management rises because teams must adopt new routines and controls."
     },
     {
       "pressure": "Supplier qualification now includes ESG and documentation depth, not just commercial or technical fit",
       "impact_on_role": "The leader must coordinate procurement, quality, sustainability, and suppliers to keep compliant supply flowing into production.",
-      "criteria_affected": [
-        "C8",
-        "C4",
-        "C3"
-      ],
       "causal_reasoning": "Regulatory complexity spans multiple organizational boundaries. Stakeholder management matters more because compliance lives across functions and suppliers. Quality rises because non-conforming inputs can trigger downstream production and certification risk."
     },
     {
       "pressure": "Brand damage from compliance failure is disproportionate in the premium segment",
       "impact_on_role": "The leader must ensure governance credibility and avoid shortcuts that could produce headline risk or product disruption.",
-      "criteria_affected": [
-        "C4",
-        "C8"
-      ],
       "causal_reasoning": "For BMW, regulatory or traceability failure can damage trust beyond the direct financial penalty. That shifts advantage toward candidates who understand governance discipline and can align operations with reputational risk management."
     },
     {
       "pressure": "New process controls create organizational friction and pushback",
       "impact_on_role": "The leader must introduce tighter standards without collapsing productivity or triggering internal resistance.",
-      "criteria_affected": [
-        "C10",
-        "C8",
-        "C4"
-      ],
       "causal_reasoning": "Compliance-driven operating changes can easily become bureaucracy if poorly implemented. Change management rises because the organization must adopt more rigorous controls, while stakeholder management matters because production, procurement, quality, and sustainability must move together rather than fight over ownership."
     }
   ],
   "emergent_criteria": [
     {
-      "id": "EC1",
       "name": "Regulatory Traceability Governance",
-      "weight": 0.1,
       "reasoning": "This scenario creates a new requirement to connect production execution with auditable material, process, and supplier traceability. Standard quality expertise alone is not enough."
     }
   ],

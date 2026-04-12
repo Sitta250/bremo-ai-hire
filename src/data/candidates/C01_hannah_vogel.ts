@@ -8,30 +8,13 @@ const data = {
   "years_experience_total": 22,
   "years_in_current_role": 4,
   "years_at_current_employer": 17,
-  "nationality": "German",
-  "languages": [
-    "German (native)",
-    "English (C1)",
-    "Italian (B1)"
-  ],
   "education": [
     {
       "degree": "Dipl.-Ing. Mechanical Engineering",
-      "institution": "TU Munich",
-      "year": 2004,
-      "distinction": "Top 10% of cohort; focus on automotive production systems"
     },
     {
       "degree": "Executive Program — Advanced Operations Leadership",
-      "institution": "WHU – Otto Beisheim School of Management",
-      "year": 2019,
-      "distinction": "Completed with distinction"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2012)",
-    "BMW Group Executive Leadership Programme (2020)",
-    "IATF 16949 Internal Auditor (2016)"
   ],
   "career_history": [
     {
@@ -55,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -78,7 +60,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted to VP role"
     },
     {
       "company": "BMW Group",
@@ -95,7 +76,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -112,7 +92,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "ZF Friedrichshafen",
@@ -129,7 +108,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW for broader leadership path"
     }
   ],
   "leadership_indicators": {
@@ -155,83 +133,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Dingolfing",
-      "overall_rating": "4.5 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Reliable senior operator with strong premium-model discipline. Best year yet on quality recovery and team stability.",
-      "strengths_noted": [
-        "Strong plant cadence",
-        "Credible with workforce",
-        "Executes launches cleanly"
-      ],
-      "development_areas": [
-        "Could push digital automation agenda harder",
-        "Needs broader multi-plant exposure"
-      ],
-      "promotion_recommendation": "Ready for a larger regional role."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Dingolfing",
-      "overall_rating": "4.3 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Delivered output and quality together. Seen as one of the safest senior internal bets.",
-      "strengths_noted": [
-        "Consistent KPI delivery",
-        "Strong works council handling"
-      ],
-      "development_areas": [
-        "Sometimes over-relies on familiar lieutenants"
-      ],
-      "promotion_recommendation": "Maintain on succession slate."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality, Dingolfing",
-        "quote": "Hannah is not dramatic, which is exactly why people trust her in a problem. She brings order fast.",
-        "theme": "Steady crisis operator"
-      },
-      {
-        "reviewer_role": "Head of Logistics, Dingolfing",
-        "quote": "She is tough on preparation and usually right. Sometimes she can close discussion too early.",
-        "theme": "Decisive, slightly rigid"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Assembly Manager (anonymised)",
-        "quote": "You always know what good looks like with Hannah. The standards are high but fair.",
-        "theme": "Clear standards"
-      },
-      {
-        "reviewer_role": "Shift Leader (anonymised)",
-        "quote": "She shows up on the line and remembers details. That matters.",
-        "theme": "Visible leader"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Production, BMW Group",
-        "quote": "A credible VP-level operator with low drama and high trust. Ceiling depends on breadth, not core capability.",
-        "theme": "Strong internal contender"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production",
-    "date": "2026-03-04",
-    "format": "Structured interview + case (80 min)",
     "overall_impression": "Composed, credible, and very grounded in real plant trade-offs. Less charismatic than some peers, but more dependable than most.",
     "question_responses": [
       {
@@ -254,22 +164,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Dingolfing",
       "relationship": "Direct manager (internal, verified)",
       "quote": "One of the few leaders I would trust with a difficult quarter and little supervision.",
-      "source": "Internal reference 2026-02-01"
     },
     {
-      "referee_name": "Former Head of Assembly, Regensburg",
       "relationship": "Former manager",
       "quote": "Built credibility the slow way — through results, not politics.",
-      "source": "Internal reference 2026-02-06"
     }
   ],
   "compensation": {
-    "current_base": "€228,000",
-    "current_total": "€312,000",
-    "expected_package": "€255,000 base; €350,000 total",
     "notice_period": "3 months",
     "availability": "July 2026"
   },

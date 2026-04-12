@@ -8,30 +8,13 @@ const data = {
   "years_experience_total": 18,
   "years_in_current_role": 2,
   "years_at_current_employer": 12,
-  "nationality": "German-Lebanese",
-  "languages": [
-    "German (native)",
-    "Arabic (native)",
-    "English (C2)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Industrial Engineering",
-      "institution": "RWTH Aachen University",
-      "year": 2010,
-      "distinction": "Graduated with distinction; thesis on flexible EV assembly"
     },
     {
       "degree": "B.Sc. Mechanical Engineering",
-      "institution": "American University of Beirut",
-      "year": 2008,
-      "distinction": "Dean's List"
     }
-  ],
-  "certifications": [
-    "PMP (2016)",
-    "BMW Group Talent Pool — Senior Leadership (2023)",
-    "EV High-Voltage Safety Certification (2021)"
   ],
   "career_history": [
     {
@@ -55,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -78,7 +60,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -95,7 +76,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -112,7 +92,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal move"
     },
     {
       "company": "Mahle",
@@ -129,7 +108,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW EV program"
     }
   ],
   "leadership_indicators": {
@@ -155,83 +133,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "SVP Launch Operations",
-      "overall_rating": "4.6 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "One of the strongest launch-focused leaders in the internal pool. Connects engineering and operations unusually well.",
-      "strengths_noted": [
-        "Launch discipline",
-        "Cross-functional influence",
-        "High EV fluency"
-      ],
-      "development_areas": [
-        "Needs more large-scale workforce exposure",
-        "Budget scope still modest"
-      ],
-      "promotion_recommendation": "Ready for a bigger plant role soon."
-    },
-    {
-      "year": 2024,
-      "reviewer": "SVP Launch Operations",
-      "overall_rating": "4.4 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Fast impact in a difficult pilot environment. Seen as high-upside and credible.",
-      "strengths_noted": [
-        "Brings order to ambiguity",
-        "Strong technical depth"
-      ],
-      "development_areas": [
-        "Can move faster than the organisation can absorb"
-      ],
-      "promotion_recommendation": "Accelerate development."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Quality Launches",
-        "quote": "Omar is one of the few people who can get engineering and production to talk like adults.",
-        "theme": "Bridges silos"
-      },
-      {
-        "reviewer_role": "Program Director, Neue Klasse",
-        "quote": "He is fast and useful. Occasionally too fast.",
-        "theme": "High pace"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Manufacturing Engineer (anonymised)",
-        "quote": "He gives a lot of ownership and expects you to use it.",
-        "theme": "Empowering, demanding"
-      },
-      {
-        "reviewer_role": "Operations Lead (anonymised)",
-        "quote": "When the room gets messy, he simplifies it fast.",
-        "theme": "Clarity under pressure"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Production Strategy",
-        "quote": "Real upside here. The question is scale, not capability.",
-        "theme": "High-potential internal"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; Head of HR Manufacturing",
-    "date": "2026-03-10",
-    "format": "Structured interview + case (75 min)",
     "overall_impression": "Sharp, modern, and one of the best internal candidates on EV launch logic. Still lighter on classic big-plant stewardship.",
     "question_responses": [
       {
@@ -254,22 +164,15 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "SVP Launch Operations",
       "relationship": "Direct manager",
       "quote": "He sees around corners better than most launch leaders I know at his level.",
-      "source": "Internal reference 2026-02-12"
     },
     {
-      "referee_name": "Head of Production, Dingolfing",
       "relationship": "Former manager",
       "quote": "Promotable, but don’t pretend pilot scale equals full plant scale.",
-      "source": "Internal reference 2026-02-18"
     }
   ],
   "compensation": {
-    "current_base": "€205,000",
-    "current_total": "€276,000",
-    "expected_package": "€235,000 base; €325,000 total",
     "notice_period": "3 months",
     "availability": "June 2026"
   },

@@ -8,31 +8,13 @@ const data = {
   "years_experience_total": 20,
   "years_in_current_role": 2,
   "years_at_current_employer": 13,
-  "nationality": "Romanian",
-  "languages": [
-    "Romanian (native)",
-    "English (C2)",
-    "German (C1)",
-    "Hungarian (B2)"
-  ],
   "education": [
     {
       "degree": "M.Sc. Automotive Engineering",
-      "institution": "University of Stuttgart",
-      "year": 2008,
-      "distinction": "Graduated with distinction"
     },
     {
       "degree": "B.Sc. Mechanical Engineering",
-      "institution": "Politehnica University of Timișoara",
-      "year": 2006,
-      "distinction": "Very good"
     }
-  ],
-  "certifications": [
-    "Lean Six Sigma Black Belt (2015)",
-    "PMP (2019)",
-    "BMW Group Senior Leadership Programme (2024)"
   ],
   "career_history": [
     {
@@ -56,7 +38,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Internal promotion candidate"
     },
     {
       "company": "BMW Group",
@@ -73,7 +54,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Moved to Debrecen launch role"
     },
     {
       "company": "BMW Group",
@@ -90,7 +70,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "BMW Group",
@@ -107,7 +86,6 @@ const data = {
           "verifiable": true
         }
       ],
-      "reason_for_leaving": "Promoted"
     },
     {
       "company": "Faurecia",
@@ -124,7 +102,6 @@ const data = {
           "verifiable": false
         }
       ],
-      "reason_for_leaving": "Joined BMW"
     }
   ],
   "leadership_indicators": {
@@ -144,78 +121,15 @@ const data = {
   },
   "evidence_sources": {
     "cv": true,
-    "performance_reviews": true,
-    "feedback_360": true,
+    "performance_reviews": null,
+    "feedback_360": null,
     "project_kpis": true,
     "interview_notes": true,
     "reference_checks": true
   },
-  "performance_reviews": [
-    {
-      "year": 2025,
-      "reviewer": "Plant Director Debrecen",
-      "overall_rating": "4.4 / 5.0",
-      "performance_category": "Outstanding",
-      "summary": "Strong launch leader with good judgment and little ego. Trusted by peers in a hard environment.",
-      "strengths_noted": [
-        "Launch governance",
-        "Calm execution",
-        "Cross-functional credibility"
-      ],
-      "development_areas": [
-        "Still early in full assembly-line authority",
-        "Needs bigger budget exposure"
-      ],
-      "promotion_recommendation": "Good candidate for larger plant remit in time."
-    },
-    {
-      "year": 2024,
-      "reviewer": "Plant Director Debrecen",
-      "overall_rating": "4.2 / 5.0",
-      "performance_category": "Exceeds Expectations",
-      "summary": "Fast impact in a greenfield setting. Reliable and useful.",
-      "strengths_noted": [
-        "Builds routines quickly",
-        "Good stakeholder handling"
-      ],
-      "development_areas": [
-        "Profile is still scale-light"
-      ],
-      "promotion_recommendation": "High-potential succession path."
-    }
-  ],
-  "feedback_360": {
-    "peers": [
-      {
-        "reviewer_role": "Head of Logistics, Debrecen",
-        "quote": "Daniel is one of the easier people to solve problems with. Low ego, high usefulness.",
-        "theme": "Collaborative operator"
-      }
-    ],
-    "direct_reports": [
-      {
-        "reviewer_role": "Area Manager (anonymised)",
-        "quote": "He is clear on priorities and doesn’t waste time on theatre.",
-        "theme": "Practical leadership"
-      },
-      {
-        "reviewer_role": "Launch Engineer (anonymised)",
-        "quote": "Calm when pressure rises. That helps the whole team.",
-        "theme": "Steady under stress"
-      }
-    ],
-    "senior_leadership": [
-      {
-        "reviewer_role": "SVP Production Launches",
-        "quote": "Not the loudest profile, but a credible and mature greenfield leader.",
-        "theme": "Quietly strong"
-      }
-    ]
-  },
+  "performance_reviews": null,
+  "feedback_360": null,
   "interview_notes": {
-    "interviewer": "Executive Search Partner; SVP Production Launches",
-    "date": "2026-03-10",
-    "format": "Structured interview + case (75 min)",
     "overall_impression": "Quietly strong. Less headline-grabbing than some peers, but highly credible in a hard launch setting.",
     "question_responses": [
       {
@@ -238,16 +152,11 @@ const data = {
   },
   "reference_checks": [
     {
-      "referee_name": "Plant Director Debrecen",
       "relationship": "Direct manager",
       "quote": "He makes new systems feel operable faster than most leaders I know.",
-      "source": "Internal reference 2026-02-17"
     }
   ],
   "compensation": {
-    "current_base": "€201,000",
-    "current_total": "€268,000",
-    "expected_package": "€228,000 base; €310,000 total",
     "notice_period": "3 months",
     "availability": "July 2026"
   },
