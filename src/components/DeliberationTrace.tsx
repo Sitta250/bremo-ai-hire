@@ -1,7 +1,7 @@
 import { Settings, Users, Brain, Handshake, Gavel, GitBranch, CircleDot } from "lucide-react";
 import type { DeliberationEntry } from "@/lib/types";
 
-const ICON_MAP = {
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   settings:  Settings,
   users:     Users,
   brain:     Brain,
@@ -18,7 +18,7 @@ const DOT_COLORS: Record<string, string> = {
 };
 
 function TraceCard({ entry }: { entry: DeliberationEntry }) {
-  const Icon = ICON_MAP[entry.agent_icon];
+  const Icon = ICON_MAP[entry.agent_icon] ?? CircleDot;
   return (
     <div className="bg-card border border-border/50 rounded-lg p-4 flex-1">
       <div className="flex items-start justify-between gap-3 mb-2">
@@ -65,7 +65,7 @@ export default function DeliberationTrace({ entries }: DeliberationTraceProps) {
         <div className="flex flex-col gap-5">
           {entries.map((entry, i) => {
             const isRight = i % 2 === 0; // 0,2,4 → right; 1,3 → left
-            const Icon = ICON_MAP[entry.agent_icon];
+            const Icon = ICON_MAP[entry.agent_icon] ?? CircleDot;
             const dotColor = DOT_COLORS[entry.agent_icon] ?? "bg-primary";
 
             return (
