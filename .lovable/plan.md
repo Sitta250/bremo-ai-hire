@@ -1,28 +1,28 @@
 
 
-## Plan: Make UI resilient to icon and field variations
+## Problem
 
-### Why
-Instead of forcing n8n to match exact icon names, add a fallback so unknown icons render a default icon instead of crashing. Also accept `scenario_snippet` as an alias for `evidence_snippet`.
+The app is sending requests to `https://n8n-production-c2b0.up.railway.app/webhook/evaluate-candidates` instead of the test URL `https://n8n-production-c2b0.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd`.
 
-### Changes
+The `.env` file has no `VITE_N8N_WEBHOOK_URL` set, so the fallback in `api.ts` should apply — but the deployed build appears to have a stale/cached value. The `/webhook/evaluate-candidates` URL isn't anywhere in the current codebase.
 
-**1. `src/components/DeliberationTrace.tsx`**
-- Add a default/fallback icon (e.g. `CircleDot` from lucide) for any `agent_icon` value not in the map
-- When looking up `Icon`, use `ICON_MAP[entry.agent_icon] ?? FallbackIcon`
-- Same for dot color: fall back to `"bg-primary"`
+## Fix
 
-**2. `src/lib/types.ts`**
-- Change `agent_icon` type from the strict union to `string` so validation doesn't reject unknown values
+**1. Hardcode the correct URL directly in `src/lib/api.ts`** (remove reliance on env var for now)
 
-**3. `src/lib/validateSummaryResult.ts`** (if icon validation exists)
-- Remove or relax any strict icon value checks
+Change line 11 from:
+```ts
+const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL || "https://n8n-production-c2b0.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd";
+```
+to:
+```ts
+const webhookUrl = "https://n8n-production-c2b0.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd";
+```
 
-**4. Normalize `scenario_snippet` → `evidence_snippet`**
-- In the response parsing logic (`src/lib/api.ts` or wherever the n8n response is processed), map `scenario_snippet` to `evidence_snippet` if the latter is missing on any intelligence_breakdown entry
+This eliminates any possibility of a stale env var override. Once you move to production, we'll switch it back to use an env var with `/webhook/` path.
 
-### Result
-- Unknown icons show a neutral dot instead of crashing
-- `scenario_snippet` works as a fallback for `evidence_snippet`
-- No n8n changes required for these two issues
+**2. Also reduce retry aggressiveness** — currently 180 retries × 5s = 15 minutes of retrying on failure. Since n8n is in test mode and will only respond while you're watching, reduce to 3 retries so errors surface quickly.
+
+## Result
+Requests will go to the correct test webhook URL. Errors will surface in ~15 seconds instead of 15 minutes.
 
