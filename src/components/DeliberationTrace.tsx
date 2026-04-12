@@ -1,4 +1,4 @@
-import { Settings, Users, Brain, Handshake, Gavel, GitBranch } from "lucide-react";
+import { Settings, Users, Brain, Handshake, Gavel, GitBranch, CircleDot } from "lucide-react";
 import type { DeliberationEntry } from "@/lib/types";
 
 const ICON_MAP = {
