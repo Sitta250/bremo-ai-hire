@@ -8,14 +8,14 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     return mockSummaryResult;
   }
 
-  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL || "https://n8n-production-c2b0.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd";
+  const webhookUrl = "https://n8n-production-c2b0.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd";
   if (!webhookUrl) {
     throw new Error(
       "VITE_N8N_WEBHOOK_URL is not defined. Add it to your .env.local file."
     );
   }
 
-  const MAX_RETRIES = 180;
+  const MAX_RETRIES = 3;
   const RETRY_DELAY_MS = 5000;
 
   let response: Response | undefined;
