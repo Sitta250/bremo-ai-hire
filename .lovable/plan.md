@@ -1,35 +1,101 @@
 
 
-## Problem
+## Plan: Remove `decision_brief` and confirm n8n JSON format
 
-The `fetch` call to n8n likely fails due to infrastructure-level timeouts (browser, proxy, or CDN typically cut connections after 1-2 minutes). When that happens, the `catch` block fires and sets `setState("intake")`, bouncing the user back to the form — making it look like the UI "rushed" past loading.
+### What changes
 
-## Solution
+**1. `src/lib/types.ts`**
+- Remove the `DecisionBrief` interface
+- Remove `decision_brief` from `SummaryResult` (so it only has `ui_payload`)
 
-Add automatic retry with exponential backoff in `submitIntake`. If a network error occurs (not an HTTP error response), retry the request instead of throwing. This keeps the loading screen visible while n8n processes.
+**2. `src/lib/validateSummaryResult.ts`**
+- Remove the `decision_brief` validation check (lines 15-17)
 
-## Changes
+**3. `src/data/mockSummaryResult.ts`**
+- Remove the `decision_brief` object from mock data
 
-### `src/lib/api.ts`
-- Wrap the `fetch` call in a retry loop (up to 60 retries, ~15+ minutes total coverage)
-- Only retry on network errors (`Failed to fetch`, `AbortError`, connection reset) — NOT on HTTP error responses (4xx/5xx)
-- Add a small delay between retries (5 seconds) to avoid hammering the endpoint
-- Keep all existing unwrap/parse logic unchanged
+---
 
-### `src/pages/Index.tsx`
-- In the `catch` block of `handleSubmit`: instead of immediately going to `setState("intake")`, only do so for non-retryable errors (the retry logic in api.ts will handle transient failures)
-- No change needed if api.ts handles retries internally (it won't throw until all retries exhausted)
+### Confirmed: JSON format n8n must return
 
-## Technical Detail
+n8n returns **one single JSON object**. No `decision_brief` needed:
 
-```text
-Attempt 1: fetch → network error (timeout after ~60s)
-  wait 5s
-Attempt 2: fetch → network error
-  wait 5s
-...
-Attempt N: fetch → 200 OK with result → return parsed data
+```json
+{
+  "ui_payload": {
+    "header": {
+      "role_title": "string",
+      "scenario_name": "string",
+      "confidence_pct": 85,
+      "confidence_label": "string",
+      "agent_count": 5
+    },
+    "candidates": [
+      {
+        "rank": 1,
+        "candidate_id": "C01",
+        "candidate_name": "Jane Doe",
+        "candidate_type": "internal",
+        "composite_label": "Top Pick – Crisis Leader",
+        "bremo_score": 8.5,
+        "ai_rationale": "Plain string or { \"full_text\": \"...\", \"bullets\": [\"...\"] }",
+        "intelligence_breakdown": [
+          {
+            "criterion_name": "Crisis Management",
+            "score": 8.5,
+            "score_pct": 85,
+            "evidence_tier": "Strong",
+            "scenario_weight": 0.3,
+            "evidence_snippet": "optional text",
+            "was_recalibrated": false
+          }
+        ],
+        "core_strengths": ["strength 1", "strength 2"],
+        "critical_risks": ["risk 1"],
+        "challenger_view": "Counter-argument text",
+        "stability_label": "Stable",
+        "recommended_protocol": ["Step 1", "Step 2"],
+        "radar_profile": {
+          "hard_skills": 8,
+          "leadership": 7,
+          "scenario_fit": 9,
+          "team_fit": 7,
+          "agility": 8
+        },
+        "mitigation_strategy": "How to address risks",
+        "deliberation_trace": [
+          {
+            "agent_label": "Technical Agent",
+            "agent_icon": "settings",
+            "duration": "2m 15s",
+            "summary": "Agent conclusion",
+            "evidence_highlight": "optional quote"
+          }
+        ],
+        "business_impact": "optional text"
+      }
+    ],
+    "speed_vs_fit": {
+      "fastest": { "candidate_id": "C01", "candidate_name": "...", "candidate_type": "internal", "notice_period": "Immediate", "bremo_score": 8.5 },
+      "best_fit": { "candidate_id": "C02", "candidate_name": "...", "candidate_type": "external", "notice_period": "3 months", "bremo_score": 9.1 },
+      "gap_summary": "...",
+      "same_person": false
+    },
+    "trade_off": {
+      "candidate_1": "C01",
+      "candidate_2": "C02",
+      "key_differentiator": "...",
+      "reversal_condition": "...",
+      "sensitivity_hint": "..."
+    }
+  }
+}
 ```
 
-This gives ~15 minutes of patience before finally throwing. The loading screen stays visible throughout because `submitIntake` only resolves/rejects after all retries.
+**Key rules:**
+- `bremo_score` and `score` must be **numbers**, not strings
+- `agent_icon` must be one of: `"settings"`, `"users"`, `"brain"`, `"handshake"`, `"gavel"`
+- `speed_vs_fit` and `trade_off` are **optional**
+- All candidates go in the single `candidates` array
+- n8n can wrap this in `{ "output": "..." }` — the frontend auto-unwraps it
 
