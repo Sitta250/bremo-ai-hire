@@ -38,7 +38,7 @@ export default function Index() {
 
   // Talent pool state (lifted up so handleSubmit can access it)
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
-  const [selectedInternalIds, setSelectedInternalIds] = useState<string[]>(() => internalPool.map((c) => c.id));
+  const [selectedInternalIds, setSelectedInternalIds] = useState<string[]>([]);
 
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     return (localStorage.getItem("bremo-theme") as "dark" | "light") || "dark";
@@ -127,7 +127,7 @@ export default function Index() {
     setError(null);
     setDebugInfo(null);
     setEditingField(null);
-    setSelectedInternalIds(internalPool.map((c) => c.id));
+    setSelectedInternalIds([]);
   };
 
   return (
