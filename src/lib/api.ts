@@ -8,14 +8,14 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     return mockSummaryResult;
   }
 
-  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+  const webhookUrl = "https://n8n-production-c2b0.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd";
   if (!webhookUrl) {
     throw new Error(
       "VITE_N8N_WEBHOOK_URL is not defined. Add it to your .env.local file."
     );
   }
 
-  const MAX_RETRIES = 180;
+  const MAX_RETRIES = 3;
   const RETRY_DELAY_MS = 5000;
 
   let response: Response | undefined;
@@ -107,5 +107,27 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     return obj;
   };
 
-  return unwrap(result);
+  const normalized = unwrap(result);
+
+  // Normalize scenario_snippet → evidence_snippet in intelligence_breakdown
+  if (normalized && typeof normalized === "object") {
+    const payload = (normalized as Record<string, unknown>).ui_payload;
+    if (payload && typeof payload === "object") {
+      const candidates = (payload as Record<string, unknown>).candidates;
+      if (Array.isArray(candidates)) {
+        for (const c of candidates) {
+          if (c && Array.isArray(c.intelligence_breakdown)) {
+            for (const ib of c.intelligence_breakdown) {
+              if (ib && !ib.evidence_snippet && ib.scenario_snippet) {
+                ib.evidence_snippet = ib.scenario_snippet;
+                delete ib.scenario_snippet;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return normalized;
 }

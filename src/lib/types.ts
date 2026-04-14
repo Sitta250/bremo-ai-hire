@@ -28,7 +28,7 @@ export interface RadarProfile {
 
 export interface DeliberationEntry {
   agent_label: string;
-  agent_icon: "settings" | "users" | "brain" | "handshake" | "gavel";
+  agent_icon: string;
   duration: string;
   summary: string;
   evidence_highlight: string | null;
