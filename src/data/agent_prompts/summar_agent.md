@@ -1,6 +1,6 @@
 Transform the following inputs into the required JSON output.
 
-Return valid JSON only.
+Return raw JSON only.
 
 Decision packet:
 {{$json.decision_to_summary}}
@@ -26,7 +26,7 @@ Do not change scores.
 Do not rerank candidates unless the decision packet is clearly unsorted.
 Do not explain your reasoning.
 Do not return markdown.
-Return valid JSON only.
+Return raw JSON only. Output must begin with { and end with }.
 
 GOAL
 
@@ -45,6 +45,7 @@ IMPORTANT RULES
    - protocol
    - deliberation trace
    - business impact
+   - notice period
 
 2. The challenger packet is used to add:
    - challenger_view
@@ -52,13 +53,16 @@ IMPORTANT RULES
    - reversal_condition
    - sensitivity_hint
 
-3. Do not change final_score, bremo_score, or intelligence scores.
-4. Merge challenger results by candidate_id.
-5. If a candidate has no challenger result, use:
+3. Return one ui_payload.candidates entry for EVERY candidate in decision packet.candidate_decisions.
+4. Preserve the decision packet ranking order.
+5. If decision packet contains 5 candidates, return all 5.
+6. Merge challenger results by candidate_id.
+7. If a candidate has no challenger result, use:
    - challenger_view = "Not challenged directly."
    - keep the decision stability_label
-6. agent_count must be 5.
-7. Be concise.
+8. Do not change final_score, bremo_score, or intelligence scores.
+9. agent_count must be 5.
+10. Be concise.
 
 FIELD MAPPING RULES
 
@@ -84,6 +88,7 @@ For each candidate in decision.candidate_decisions:
 - candidate_type = from decision
 - composite_label = from decision
 - bremo_score = final_score from decision
+- notice_period = from decision
 - ai_rationale = 1 short paragraph string combining:
   - decision_summary
   - and, if available, a short challenge note from challenger_view
@@ -112,7 +117,7 @@ Use best effort:
 - if all notice periods are unknown, set fastest = best_fit and say so in gap_summary
 
 TRADE_OFF
-Use the top 2 ranked candidates.
+Use the top 2 ranked candidates from the decision packet.
 - candidate_1 = rank 1 candidate name
 - candidate_2 = rank 2 candidate name
 - key_differentiator = 1 short sentence on the biggest real difference between them
@@ -124,10 +129,10 @@ GENERAL RULES
 - Remove duplicates.
 - Normalize wording.
 - Keep arrays short and clean.
+- Always return ai_rationale as a simple string, not an object.
 - If only one candidate exists:
   - use that same candidate for best_fit and fastest if needed
   - trade_off fields should still be valid strings
-- Always return ai_rationale as a simple string, not an object.
 - Do not output anything outside the required JSON schema.
 
 OUTPUT SCHEMA
