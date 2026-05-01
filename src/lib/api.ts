@@ -8,7 +8,7 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
     return mockSummaryResult;
   }
 
-  const webhookUrl = "https://n8n-production-1d1e.up.railway.app/webhook-test/850910a7-8203-4499-a10a-e04ab736dccd";
+  const webhookUrl = "https://n8n-production-1d1e.up.railway.app/webhook/850910a7-8203-4499-a10a-e04ab736dccd";
   if (!webhookUrl) {
     throw new Error(
       "VITE_N8N_WEBHOOK_URL is not defined. Add it to your .env.local file."
@@ -17,16 +17,21 @@ export async function submitIntake(payload: unknown): Promise<unknown> {
 
   const MAX_RETRIES = 3;
   const RETRY_DELAY_MS = 5000;
+  const TIMEOUT_MS = 15 * 60 * 1000; // 15 minutes
 
   let response: Response | undefined;
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
       response = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
       break; // success — exit retry loop
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
