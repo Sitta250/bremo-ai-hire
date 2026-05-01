@@ -7,8 +7,7 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import CompetencyRadar from "./CompetencyRadar";
- import DeliberationTrace from "./DeliberationTrace";
+import DeliberationTrace from "./DeliberationTrace";
 import SpeedVsFitCard from "./SpeedVsFitCard";
 import type { AiRationale, SummaryCandidate, SummaryResult } from "@/lib/types";
 
