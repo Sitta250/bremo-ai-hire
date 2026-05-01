@@ -1,7 +1,9 @@
-## Changes in `src/lib/api.ts`
+## Plan: Remove Competency Profile, expand Challenger's Dissent
 
-1. **Update webhook URL** to `https://n8n-production-1d1e.up.railway.app/webhook/850910a7-8203-4499-a10a-e04ab736dccd`
+**File: `src/components/ResultsView.tsx`** (lines ~200-235)
 
-2. **Add a 15-minute fetch timeout** using `AbortController` so the frontend waits up to 15 minutes for n8n to respond before giving up.
+1. Remove the `<CompetencyRadar>` component call on line 201
+2. Change the grid from `grid-cols-1 lg:grid-cols-2` to just a single column (remove grid entirely or use `grid-cols-1`)
+3. The Challenger's Dissent block (lines 203-234) will now span the full width
 
-3. **Keep retries at 3** but the long timeout per attempt means the system will patiently wait for slow AI processing.
+Also remove the unused `CompetencyRadar` import on line 10.

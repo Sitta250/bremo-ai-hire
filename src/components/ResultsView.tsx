@@ -7,7 +7,6 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import CompetencyRadar from "./CompetencyRadar";
 import DeliberationTrace from "./DeliberationTrace";
 import SpeedVsFitCard from "./SpeedVsFitCard";
 import type { AiRationale, SummaryCandidate, SummaryResult } from "@/lib/types";
@@ -197,9 +196,7 @@ function CandidateDetail({ candidate }: { candidate: SummaryCandidate }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 border-t border-border/40 pt-6">
-            <CompetencyRadar profile={candidate.radar_profile} />
-
+          <div className="border-t border-border/40 pt-6">
             <div className="border border-border/50 rounded-lg p-4 flex flex-col bg-secondary/20">
               <div className="flex items-center gap-2 mb-3">
                 <HelpCircle className="w-3.5 h-3.5 text-warning/70" />
