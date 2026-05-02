@@ -1,4 +1,10 @@
+![Contributor Anas Bakkoury](images/anas.png)
+
 # Bremo AI Hire
+
+Hackathon group project by **Sitta Uttangkat**, **Anas Bakkoury**, and **Nuraly Astanakulov**.
+
+The live web demo may no longer be available: API keys used for the build were revoked, and hosted services (e.g. Lovable, Railway, and related providers) are not kept running 24/7 due to cost.
 
 Strategic hiring intelligence for high-impact roles.
 
