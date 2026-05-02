@@ -1,5 +1,3 @@
-![Contributor Anas Bakkoury](images/anas.png)
-
 # Bremo AI Hire
 
 Hackathon group project by **Sitta Uttangkat**, **Anas Bakkoury**, and **Nuraly Astanakulov**.
